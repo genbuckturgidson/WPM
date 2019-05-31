@@ -49,7 +49,7 @@ usage:
 	 -p | --path 
 
   -s | --search	 locate all WP installs 
-	 example: wpm --find /var/www/ 
+	 example: wpm -s /var/www/
 
   -i | --install	install wordpress 
 	 -d | --domain 
@@ -98,6 +98,8 @@ usage:
 The `--install` function configures WordPress to use ftpsockets for `FS_METHOD`. This will require that you have an FTP server running even if it's only listening on 127.0.0.1. This same assumption is made by the `--permissions` function. Both `--install` and `--permissions` will set the user and group such that the web process is not the owner of the files, and that the web group will have read access only. This is to attempt to prevent file injection. The `--permissions` function does make permission settings backups if the `getfacl` command is available.
 
 The `--verify` function requires maldet if you wish to use the `--scan` option. The `--md5` option will download a copy of the installed WP version from WordPress.org and will md5 every file and compare. If you select the `--replace` option, any file will get replaced if a difference is detected. The `--replace` option also enables quarantining in `--scan`. It is highly recommended to only use `--replace` if you use `--backup`.
+
+You may notice that the `--mangle` function has an option for skipping search. This is because the `--search` function will generate lists in $TEMPDIR which can be modified, should you wish to skip a particular installation.
 
 ---
 

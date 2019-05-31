@@ -88,6 +88,8 @@ function verify() {
 				fi
 			fi
 		done <$TEMPDIR/verify/$VERSION/record.lst
+
+    rm -rf $TEMPDIR/verify/$VERSION
 	fi
 
 	##################
