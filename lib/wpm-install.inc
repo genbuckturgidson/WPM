@@ -9,8 +9,8 @@ function install() {
 	do
 		key="$1"
   	case $key in
-    	-d|--domain) name=$2; shift;;
-    	-p|--path) target=$2; shift;;
+    	-d|--domain) name="$2"; shift;;
+    	-p|--path) target="$2"; shift;;
     	*) echo "$1 not implemented" ; POSIT+=("$1") ;;
     esac
     shift
@@ -24,11 +24,11 @@ function install() {
   [ -z $name ] && echo "you must providea domain name"
   [ -z $name ] && exit 1
 
-  [ -f "$target/wp-config.php" ] || echo "this is already a wordpress installation"
-  [ -f "$target/wp-config.php" ] || exit 1
+  [ -f "$target/wp-config.php" ] && echo "this is already a wordpress installation"
+  [ -f "$target/wp-config.php" ] && exit 1
 
-  [ -d "$target/wp-content" ] || echo "this is already a wordpress installation"
-  [ -d "$target/wp-content" ] || exit 1
+  [ -d "$target/wp-content" ] && echo "this is already a wordpress installation"
+  [ -d "$target/wp-content" ] && exit 1
 
   echo "==WP INSTALL CALLED ON $dt WITH VERSION $WPVERSION==" >> $LOGFILE
   echo "==UNIQUE IDENTIFIER $r==" >> $LOGFILE
@@ -143,7 +143,7 @@ function install() {
   echo "setting permissions"
 
   try mkdir $target/wp-content/uploads
-  $g=`getent group $SELECTED_GROUP | cut -d: -f1`
+  g="`getent group $SELECTED_GROUP | cut -d: -f1`"
   try chown -R $t:$g $target
   try find $target -type d -exec chmod 750 '{}' \;
   try find $target -type f -exec chmod 640 '{}' \;
