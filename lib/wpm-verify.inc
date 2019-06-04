@@ -28,7 +28,7 @@ function verify() {
 	echo "==WPM VERIFY CALLED ON $dt WITH VERSION $WPMVERSION==" >> $LOGFILE
   echo "==UNIQUE IDENTIFIER $r==" >> $LOGFILE
 	
-	if [ "$DIR == "`pwd`" ]; then
+	if [ "$DIR" == "`pwd`" ]; then
   	echo "Using `pwd` as the wordpress path"
   else
   	[ -d $DIR ] || echo "directory $DIR does not exist"  

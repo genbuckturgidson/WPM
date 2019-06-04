@@ -96,7 +96,7 @@ function backup() {
   	excludes=""
   fi
   
-  if [ "$no_compress == "y" ]; then
+  if [ "$no_compress" == "y" ]; then
   	if [ "$compressor" == "xz" ]; then
   		pred="xz -0 > $BACKUPPATH/$name.$dt.tar.xz"
   	else

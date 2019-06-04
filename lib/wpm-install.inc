@@ -34,7 +34,7 @@ function install() {
   echo "==UNIQUE IDENTIFIER $r==" >> $LOGFILE
   echo "=$r=starting install in `pwd`==" >> $LOGFILE
 
-  if [ "$target == "`pwd`" ]; then
+  if [ "$target" == "`pwd`" ]; then
   	echo "Using `pwd` as the install path"
   else
   	cd $target
