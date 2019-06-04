@@ -24,11 +24,11 @@ function install() {
   [ -z $name ] && echo "you must providea domain name"
   [ -z $name ] && exit 1
 
-  [ -f $target/wp-config.php ] || echo "this is already a wordpress installation"
-  [ -f $target/wp-config.php ] || exit 1
+  [ -f "$target/wp-config.php" ] || echo "this is already a wordpress installation"
+  [ -f "$target/wp-config.php" ] || exit 1
 
-  [ -d $target/wp-content ] || echo "this is already a wordpress installation"
-  [ -d $target/wp-content ] || exit 1
+  [ -d "$target/wp-content" ] || echo "this is already a wordpress installation"
+  [ -d "$target/wp-content" ] || exit 1
 
   echo "==WP INSTALL CALLED ON $dt WITH VERSION $WPVERSION==" >> $LOGFILE
   echo "==UNIQUE IDENTIFIER $r==" >> $LOGFILE
