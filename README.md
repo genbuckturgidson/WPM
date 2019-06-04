@@ -6,7 +6,7 @@
 
 **Project Started**: 20131222
 
-**Project Updated**: 20190531
+**Project Updated**: 20190604
 
 **Project Name**: WordPress Mangler
 
@@ -100,6 +100,8 @@ The `--install` function configures WordPress to use ftpsockets for `FS_METHOD`.
 The `--verify` function requires maldet if you wish to use the `--scan` option. The `--md5` option will download a copy of the installed WP version from WordPress.org and will md5 every file and compare. If you select the `--replace` option, any file will get replaced if a difference is detected. The `--replace` option also enables quarantining in `--scan`. It is highly recommended to only use `--replace` if you use `--backup`.
 
 You may notice that the `--mangle` function has an option for skipping search. This is because the `--search` function will generate lists in $TEMPDIR which can be modified, should you wish to skip a particular installation.
+
+The `--delete` function will **NOT** remove the FTP user used for ftpsockets.
 
 ---
 
