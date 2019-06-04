@@ -34,7 +34,8 @@ try() { "$@" || die "cannot $*"; }
 # MAKE SURE THAT TEMPDIR EXISTS #
 #################################
 
-[ -d $TEMPDIR ] && chmod 770 $TEMPDIR || "$TEMPDIR does not exist"
+[ -d $TEMPDIR ] || try mkdir -m 770 -p $TEMPDIR
+[ -d $TEMPDIR ] || echo "$TEMPDIR does not exist"
 [ -d $TEMPDIR ] || exit 1
 
 ########################################
@@ -42,6 +43,7 @@ try() { "$@" || die "cannot $*"; }
 ########################################
 
 [ -d $BACKUPPATH ] || try mkdir -m 770 -p $BACKUPPATH
+[ -d $BACKUPPATH ] || echo "$BACKUPPATH does not exist"
 [ -d $BACKUPPATH ] || exit 1
 
 ####################################
