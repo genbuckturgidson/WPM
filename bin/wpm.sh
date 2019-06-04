@@ -92,7 +92,7 @@ function usage() {
 	printf "\t -p | --path \n\n"
 	
 	printf "  -s | --search\t locate all WP installs \n"
-	printf "\t example: wpm --find /var/www/ \n\n"
+	printf "\t example: wpm --search /var/www/ \n\n"
 	
 	printf " -i | --install\t install wordpress \n"
 	printf "\t -d | --domain \n"
