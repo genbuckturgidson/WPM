@@ -78,10 +78,10 @@ function usage() {
 	printf "usage:\n"
 
 	printf "  -b | --backup\t backup a wordpress installation \n"
-	printf "\t -n | --no-compress\t the xz or gz container won't actually be compressed \n"
-	printf "\t -d | --delete-old\t delete older backups \n"
+	printf "\t -n | --no-compress\t  the xz or gz container won't actually be compressed \n"
+	printf "\t -d | --delete-old\t   delete older backups \n"
 	printf "\t -s | --skip-uploads\t skip the uploads directory \n"
-	printf "\t -p | --path\t the WordPress install's location \n\n"
+	printf "\t -p | --path\t         the WordPress install's location \n\n"
 
 	printf "  -c | --copy\t copy a WP install from one domain/directory to another \n"
 	printf "\t -o | --oldname \n"
@@ -101,15 +101,15 @@ function usage() {
 	printf "\t -p | --path \n\n"
 	
 	printf " -m | --mangle\t find and then update all WordPress installs \n"
-	printf "\t -n | --no-backup\t do not backup the WP installs first (bad idea, btw) \n"
-	printf "\t -p | --path\t the search path for installs \n"
+	printf "\t -n | --no-backup\t   do not backup the WP installs first (bad idea, btw) \n"
+	printf "\t -p | --path\t        the search path for installs \n"
 	printf "\t -s | --skip-search\t skip doing the search for installs \n\n"
 	
 	printf "  -w | --password\t change a user password permanently/temporarily \n"
-	printf "\t -d | --duration\t duration of password change \n"
+	printf "\t -d | --duration\t duration of password change (0 for permanent, default 10 mins)\n"
 	printf "\t -u | --username\t user who's password should be changed \n"
-	printf "\t -v | --view\t view the WP usernames \n"
-	printf "\t -p | --path\t location of the WP install \n\n"
+	printf "\t -v | --view\t     view the WP usernames \n"
+	printf "\t -p | --path\t     location of the WP install \n\n"
 	
 	printf "  -p | --permissions\t reset file/directory perms to safe values \n"
 	printf "\t example: wpm -p /var/www/html \n\n"
@@ -124,16 +124,16 @@ function usage() {
 	printf "\t example: wpm --settings BACKUPPATH=/var/www/backup \n\n"
 	
 	printf "  -u | --update\t update a wordpress install \n"
-	printf "\t -b | --backup\t do a backup first \n"
+	printf "\t -b | --backup\t  do a backup first \n"
 	printf "\t -g | --plugins\t update plugins too \n"
-	printf "\t -p | --path\t location of the WP install \n\n"
+	printf "\t -p | --path\t    location of the WP install \n\n"
 	
 	printf "  -v | --verify\t scan a wordpress install \n"
-	printf "\t -s | --scan\t scan with maldet \n"
-	printf "\t -m | --md5\t md5 files from install against version from wordpress.org \n"
-	printf "\t -b | --backup\t run a backup first \n"
+	printf "\t -s | --scan\t    scan with maldet \n"
+	printf "\t -m | --md5\t     md5 files from install against version from wordpress.org \n"
+	printf "\t -b | --backup\t  run a backup first \n"
 	printf "\t -r | --replace\t replace modified files (requires --md5) \n"
-	printf "\t -p | --path\t location of the WP install \n\n"
+	printf "\t -p | --path\t    location of the WP install \n\n"
 
 	printf "  -h | --help\t print this help text \n"
 } # END USAGE
