@@ -146,7 +146,7 @@ case "$1" in
   -c|--copy) copy "${@:2}" ;;
   -i|--install) install "${@:2}" ;;
   -u|--update) update "${@:2}" ;;
-  -p|--permissions) permissions"${@:2}" ;;
+  -p|--permissions) permissions "${@:2}" ;;
   -d|--delete) delete "${@:2}" ;;
   -b|--backup) backup "${@:2}" ;;
   -w|--password) password "${@:2}" ;;
