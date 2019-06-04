@@ -78,10 +78,10 @@ function usage() {
 	printf "usage:\n"
 
 	printf "  -b | --backup\t backup a wordpress installation \n"
-	printf "\t %21s \t %s \n" "-n | --no-compress" "the xz or gz container won't actually be compressed"
-	printf "\t %21s \t %s \n" "-d | --delete-old" "delete older backups"
-	printf "\t %21s \t %s \n" "-s | --skip-uploads" "skip the uploads directory"
-	printf "\t %21s \t %s \n" "-p | --path" "the WordPress install's location \n"
+	printf "\t %-21s \t %s \n" "-n | --no-compress" "the xz or gz container won't actually be compressed"
+	printf "\t %-21s \t %s \n" "-d | --delete-old" "delete older backups"
+	printf "\t %-21s \t %s \n" "-s | --skip-uploads" "skip the uploads directory"
+	printf "\t %-21s \t %s \n\n" "-p | --path" "the WordPress install's location"
 
 	printf "  -c | --copy\t copy a WP install from one domain/directory to another \n"
 	printf "\t -o | --oldname \n"
