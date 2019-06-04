@@ -143,7 +143,8 @@ function install() {
   echo "setting permissions"
 
   try mkdir $target/wp-content/uploads
-  g="`getent group $SELECTED_GROUP | cut -d: -f1`"
+  g="`getent group $SELECTED_GROUP | cut -d ':' -f 1`"
+  printf "USER: $t\t GROUP: $g\n"
   try chown -R $t:$g $target
   try find $target -type d -exec chmod 750 '{}' \;
   try find $target -type f -exec chmod 640 '{}' \;
