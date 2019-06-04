@@ -12,7 +12,7 @@ search() {
   echo "==UNIQUE IDENTIFIER $r==" >> $LOGFILE
   echo "=$r=Executing find on $path" >> $LOGFILE
 
-  for i in `find $path -type f -iname "wp-config.php" -exec dirname '{}' | xargs -0 -I {} echo {}`; do
+  for i in `find $path -type f -iname "wp-config.php" -exec dirname '{}' \; | xargs -0 -I {} echo {}`; do
   	location=`echo $i | tr -cd "[:print:]"`
   	if [ -d "$location/wp-content" ]; then
   		echo $location | tee -a $TEMPDIR/wordpress_installs.list
