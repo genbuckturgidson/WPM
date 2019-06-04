@@ -53,7 +53,7 @@ function delete() {
     echo "=$r=$dbname doesn't exist or I lack access" >> $LOGFILE
   fi
 
-  mysql -e "DELETE FROM mysql.user WHERE user=${dbuser};"
+  mysql -e "DELETE FROM mysql.user WHERE \`user\`=\"$dbuser\";"
   mysql -e "FLUSH PRIVILEGES;"
   echo "=$r=Database user $dbuser has been deleted" >> $LOGFILE
 
