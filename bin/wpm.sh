@@ -58,9 +58,9 @@ if [ -z $SELECTED_GROUP ]; then
   n=`ps -ef | grep nginx | grep -v root | grep -v grep | awk '{print $1}' | sort | uniq`
   h=`ps -ef | grep httpd | grep -v root | grep -v grep | awk '{print $1}' | sort | uniq`
   a=`ps -ef | grep apache | grep -v root | grep -v grep | awk '{print $1}' | sort | uniq`
-  [ ! -z $n ] || $SELECTED_GROUP=`id -g $n`
-  [ ! -z $h ] || $SELECTED_GROUP:=`id -g $h`
-  [ ! -z $a ] || $SELECTED_GROUP:=`id -g $a`
+  [ ! -z $n ] || SELECTED_GROUP=`id -g $n`
+  [ ! -z $h ] || SELECTED_GROUP=`id -g $h`
+  [ ! -z $a ] || SELECTED_GROUP=`id -g $a`
   [ -z $SELECTED_GROUP ] && echo "no selected group found, please set it in  6b4178521b3f/etc/wpm/wpm.conf"
   unset n
   unset h
