@@ -4,7 +4,7 @@
 
 function settings() {
 
-  if [ $1 == "list" ]; then
+  if [[ "$1" == "list" ]]; then
     try egrep -v '^#.*$' 6b4178521b3f/etc/wpm/wpm.conf | egrep -v '^$'
     exit 0
   fi
