@@ -42,33 +42,34 @@ function update() {
 
   echo "getting recent wordpress version"
 
-  echo "=$r=Checking $TEMPDIR/installer" >> $LOGFILE
+  echo "=$r=Checking $TEMPDIR/wp-installer" >> $LOGFILE
 
-  [ -d $TEMPDIR/installer ] || mkdir -p $TEMPDIR/installer
+  [ -d $TEMPDIR/wp-installer ] || mkdir -p $TEMPDIR/wp-installer
 
   echo "=$r=Removing old versions" >> $LOGFILE
-  find $TEMPDIR/installer/ -mtime +1 -name wordpress.latest.tar -exec rm -fv '{}' \;
+  find $TEMPDIR/wp-installer/ -mtime +1 -name wordpress.latest.tar -exec rm -fv '{}' \;
 
-  if [ -e $TEMPDIR/installer/wordpress.latest.tar ]; then
+  if [ -e $TEMPDIR/wp-installer/wordpress.latest.tar ]; then
     echo "=$r=Recent version already present" >> $LOGFILE
   else
-    try wget -O $TEMPDIR/installer/wordpress.latest.tar.gz https://wordpress.org/latest.tar.gz --no-check-certificate &> /dev/null
-    gunzip $TEMPDIR/installer/wordpress.latest.tar.gz &> /dev/null
+    try wget -O $TEMPDIR/wp-installer/wordpress.latest.tar.gz https://wordpress.org/latest.tar.gz --no-check-certificate &> /dev/null
+    try touch $TEMPDIR/wp-installer/wordpress.latest.tar.gz
+    try gunzip $TEMPDIR/wp-installer/wordpress.latest.tar.gz &> /dev/null
     echo "=$r=Recent version downloaded" >> $LOGFILE
   fi
 
-  if [ ! -e $TEMPDIR/installer/wordpress.latest.tar ]; then
-    echo "=$r=Cannot get archive at $TEMPDIR/installer/" >> $LOGFILE
-    echo "can't get archive at $TEMPDIR/installer/" && exit 1
+  if [ ! -e $TEMPDIR/wp-installer/wordpress.latest.tar ]; then
+    echo "=$r=Cannot get archive at $TEMPDIR/wp-installer/" >> $LOGFILE
+    echo "can't get archive at $TEMPDIR/wp-installer/" && exit 1
   fi
 
   echo ="$r"=Extracting Wordpress in `pwd` >> $LOGFILE
 
-  if tar -f $TEMPDIR/installer/wordpress.latest.tar -x --strip-components=1; then
+  if tar -f $TEMPDIR/wp-installer/wordpress.latest.tar -x --strip-components=1; then
     echo "=$r=Extracting Wordpress in `pwd` complete" >> $LOGFILE
   else
     echo "=$r=Extracting Wordpress in `pwd` failed, trying with legacy tar options" >> $LOGFILE
-    if tar -f $TEMPDIR/installer/wordpress.latest.tar -x --strip-path=1; then
+    if tar -f $TEMPDIR/wp-installer/wordpress.latest.tar -x --strip-path=1; then
       echo "=$r=Extracting Wordpress in `pwd` complete" >> $LOGFILE
     else
       echo "=$r=Extracting Wordpress completely failed in `pwd`" >> $LOGFILE
