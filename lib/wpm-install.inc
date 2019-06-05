@@ -55,14 +55,14 @@ function install() {
   [ -d $TEMPDIR/wp-installer ] || try mkdir -p $TEMPDIR/wp-installer
 
   echo "=$r=Removing old versions" >> $LOGFILE
-  try find $TEMPDIR/wp-installer/ -mtime +1 -name wordpress.latest.tar -exec rm -fv '{}' \;
+  try find $TEMPDIR/wp-installer/ -mtime +1 -iname "wordpress.latest*" -delete
 
   if [ -e $TEMPDIR/wp-installer/wordpress.latest.tar ]; then
     echo "=$r=Recent version already present" >> $LOGFILE
   else
     try wget -O $TEMPDIR/wp-installer/wordpress.latest.tar.gz https://wordpress.org/latest.tar.gz --no-check-certificate &> /dev/null
-    try touch $TEMPDIR/wp-installer/wordpress.latest.tar
     try gunzip $TEMPDIR/wp-installer/wordpress.latest.tar.gz &> /dev/null
+    try touch $TEMPDIR/wp-installer/wordpress.latest.tar
     echo "=$r=Recent version downloaded" >> $LOGFILE
   fi
 
