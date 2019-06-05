@@ -62,10 +62,6 @@ function copy() {
   try find . -type f -exec sed -i "s/$OLDP/$NEWP/g" {} +
   try sed -i "s|$OLDP|$NEWP|g" $TEMPDIR/$dbname.sql
 
-  #echo "=$r=changing $OLDN to $NEWN" >> $LOGFILE
-  #try find . -type f -exec sed -i "s/$OLDN/$NEWN/g" {} +
-  #try sed -i "s/$OLDN/$NEWN/g" $TEMPDIR/$dbname.sql
-
   echo "fixing serialized php array values"
   echo "=$r=Running fixserial on $TEMPDIR/$dbname.sql" >> $LOGFILE
   try 6b4178521b3f/lib/fixserial.sh -o $OLDN -n $NEWN -f $TEMPDIR/$dbname.sql
