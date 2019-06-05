@@ -31,12 +31,13 @@ As root, just type `make install` within this archive. There is one configurable
 So, `wpm --help` will show you this:
 
 ```
+wpm version 4.0
 usage:
   -b | --backup	 backup a wordpress installation 
-	 -n | --no-compress	 the xz or gz container won't actually be compressed 
-	 -d | --delete-old	 delete older backups 
-	 -s | --skip-uploads	 skip the uploads directory 
-	 -p | --path	 the WordPress install's location 
+	 -n | --no-compress    	 the xz or gz container won't actually be compressed 
+	 -d | --delete-old     	 delete older backups 
+	 -s | --skip-uploads   	 skip the uploads directory 
+	 -p | --path           	 the WordPress install's location 
 
   -c | --copy	 copy a WP install from one domain/directory to another 
 	 -o | --oldname 
@@ -49,22 +50,22 @@ usage:
 	 -p | --path 
 
   -s | --search	 locate all WP installs 
-	 example: wpm -s /var/www/
+	 example: wpm --search /var/www/ 
 
-  -i | --install	install wordpress 
+ -i | --install	 install wordpress 
 	 -d | --domain 
 	 -p | --path 
 
-  -m | --mangle	 find and then update all WordPress installs 
-	 -n | --no-backup	 do not backup the WP installs first (bad idea, btw)
-	 -p | --path	 the search path for installs 
-	 -s | --skip-search	 skip doing the search for installs 
+ -m | --mangle	 find and then update all WordPress installs 
+	 -n | --no-backup      	 do not backup the WP installs first (bad idea, btw) 
+	 -p | --path           	 the search path for installs 
+	 -s | --skip-search    	 skip doing the search for installs 
 
   -w | --password	 change a user password permanently/temporarily 
-	 -d | --duration	 duration of password change 
-	 -u | --username	 user who's password should be changed 
-	 -v | --view	 view the WP usernames 
-	 -p | --path	 location of the WP install 
+	 -d | --duration       	 duration of password change (0 for permanent, default 10 mins) 
+	 -u | --username       	 user who's password should be changed 
+	 -v | --view           	 view the WP usernames 
+	 -p | --path           	 location of the WP install 
 
   -p | --permissions	 reset file/directory perms to safe values 
 	 example: wpm -p /var/www/html 
@@ -79,16 +80,16 @@ usage:
 	 example: wpm --settings BACKUPPATH=/var/www/backup 
 
   -u | --update	 update a wordpress install 
-	 -b | --backup	 do a backup first 
-	 -g | --plugins	 update plugins too 
-	 -p | --path	 location of the WP install 
+	 -b | --backup         	 do a backup first 
+	 -g | --plugins        	 update plugins too 
+	 -p | --path           	 location of the WP install 
 
   -v | --verify	 scan a wordpress install 
-	 -s | --scan	 scan with maldet 
-	 -m | --md5	 md5 files from install against version from wordpress.org 
-	 -b | --backup	 run a backup first 
-	 -r | --replace	 replace modified files (requires --md5) 
-	 -p | --path		 location of the WP install
+	 -s | --scan           	 scan with maldet 
+	 -m | --md5            	 md5 presnet files against those from wordpress.org 
+	 -b | --backup         	 run a backup first 
+	 -r | --replace        	 replace modified files (requires --md5) 
+	 -p | --path           	 location of the WP install 
 
   -h | --help	 print this help text
 ```
