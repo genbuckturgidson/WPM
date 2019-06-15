@@ -75,11 +75,11 @@ function password() {
 
   echo "=$r=Temporary password has been set" >> $LOGFILE
 
-  if [ ! -z $duration ];then
+  if [ ! -z $duration ] && [ ! "$duration" == "0" ];then
     echo "=$r=Sleeping for $duration" >> $LOGFILE
     echo "sleeping for $duration"
     sleep $duration
-  elif [ $duration -eq 0 ]; then
+  elif [ "$duration" == "0" ]; then
     echo "=$r=duration zero, do not revert" >> $LOGFILE
     echo "duration set to zero, meaning no reverting to old pass"
     echo "if this was in error, the old hashed pass is in the log"
