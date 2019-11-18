@@ -36,6 +36,11 @@ function backup() {
   cd $path
 
   local name=`echo $path | rev | cut -d '/' -f 1 | rev`
+
+  if [ "$name" == "" ] || [ ${#name} -lt 3 ]; then
+    name="wordpress"
+  fi
+
   echo "=$r=The name is $name" >> $LOGFILE
 
   local dbname=`grep DB_NAME wp-config.php | awk -F "'" '{print $4}'`
@@ -54,6 +59,11 @@ function backup() {
 
   echo "=$r=The database dump is complete." >> $LOGFILE
   echo "The Database dump is complete."
+
+  if [ "$BACKUPPATH" == "PARENTOFGIVEN" ]; then
+    BACKUPPATH=`dirname $path`
+    delete_old="n"
+  fi
 
   if [ "$delete_old" == "y" ]; then
     try find $BACKUPPATH -mtime +1 -type f -exec rm -fv '{}' \;;
@@ -104,16 +114,16 @@ function backup() {
   	fi
   else
   	if [ "$compressor" == "xz" ]; then
-  		pred="xz -0 > $BACKUPPATH/$name.$dt.tar.xz"
+  		pred="xz -9 > $BACKUPPATH/$name.$dt.tar.xz"
   	else
-  		pred="gzip -1 > $BACKUPPATH/$name.$dt.tar.gz"
+  		pred="gzip -9 > $BACKUPPATH/$name.$dt.tar.gz"
   	fi
   fi
   
   [ `which getfacl` ] && getfacl -R `pwd` > permissions_backup.${dt}
   [ `which getfacl` ] && echo "permissions backup completed."
   [ `which getfacl` ] && echo "the backup can be restored with setfacl --restore=${1}/.permissions_backup.${dt}"
-  	
+
   CMD="try tar $tar_options - ./* $TEMPDIR/$dbname.$dt.sql $excludes | $intermediate_pred $pred"
   
   eval $CMD

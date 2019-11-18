@@ -95,22 +95,24 @@ function verify() {
 	##################
 	# VIRUS SCANNING #
 	##################
-	if [ `maldet` ] && [ "$SCAN" == "y" ]; then
-		try maldet -update
-		echo "=$r=Maldet DB updated" >> $LOGFILE
-		if [ "$REPLACE" == "y" ]; then
-			maldet --config-option scan_clamscan=1,quarantine_hits=1
-			echo "=$r=Maldet config with quarantine" >> $LOGFILE
-		else
-			maldet --config-option scan_clamscan=1,quarantine_hits=0
-			echo "=$r=Maldet config without quarantine" >> $LOGFILE
-		fi
-		maldet -a `pwd`
-		echo "=$r=Maldet run on `pwd`" >> $LOGFILE
-	elif [ ! `maldet` ] && [ "$SCAN" == "y" ]; then
-		echo "Cannot scan. Maldet not installed."
-		echo "=$r=Maldet could not run, because not installed" >> $LOGFILE
-	fi
+  if [ "$SCAN" == "y" ]; then
+  	if [ `maldet` ]; then
+	  	try maldet -update
+		  echo "=$r=Maldet DB updated" >> $LOGFILE
+  		if [ "$REPLACE" == "y" ]; then
+  			maldet --config-option scan_clamscan=1,quarantine_hits=1
+  			echo "=$r=Maldet config with quarantine" >> $LOGFILE
+  		else
+  			maldet --config-option scan_clamscan=1,quarantine_hits=0
+  			echo "=$r=Maldet config without quarantine" >> $LOGFILE
+  		fi
+  		maldet -a `pwd`
+  		echo "=$r=Maldet run on `pwd`" >> $LOGFILE
+  	elif [ ! `maldet` ]; then
+  		echo "Cannot scan. Maldet not installed."
+  		echo "=$r=Maldet could not run, because not installed" >> $LOGFILE
+  	fi # END IF MALDET
+  fi # END IF SCAN
 	
 	echo "=$r=Verify complete at `date +%Y%m%d.%H%M`" >> $LOGFILE
 	echo "wpm --verify is complete."
