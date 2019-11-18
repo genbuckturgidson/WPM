@@ -6,7 +6,7 @@
 
 **Project Started**: 20131222
 
-**Project Updated**: 20190604
+**Project Updated**: 20191118
 
 **Project Name**: WordPress Mangler
 
@@ -31,7 +31,7 @@ As root, just type `make install` within this archive. There is one configurable
 So, `wpm --help` will show you this:
 
 ```
-wpm version 4.0
+wpm version 4.0.1
 usage:
   -b | --backup	 backup a wordpress installation 
 	 -n | --no-compress    	 the xz or gz container won't actually be compressed 
