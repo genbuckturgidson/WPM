@@ -40,9 +40,11 @@ try() { "$@" || die "cannot $*"; }
 # MAKE SURE THAT THE BACKUPPATH EXISTS #
 ########################################
 
-[ -d $BACKUPPATH ] || try mkdir -m 770 -p $BACKUPPATH
-[ -d $BACKUPPATH ] || echo "$BACKUPPATH does not exist"
-[ -d $BACKUPPATH ] || exit 1
+if [ "$BACKUPPATH" != "PARENTOFGIVEN" ]; then
+  [ -d $BACKUPPATH ] || try mkdir -m 770 -p $BACKUPPATH
+  [ -d $BACKUPPATH ] || echo "$BACKUPPATH does not exist"
+  [ -d $BACKUPPATH ] || exit 1
+fi
 
 ####################################
 # SET THE REFERENCE ID FOR LOGGING #
