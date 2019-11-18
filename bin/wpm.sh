@@ -13,8 +13,6 @@
 . 6b4178521b3f/lib/wpm-update.inc
 . 6b4178521b3f/lib/wpm-verify.inc
 
-WPMVERSION="4.0"
-
 ############################
 # TRY BLOCK IMPLEMENTATION #
 # SCRIPT HALTS ON FAILURE  #
