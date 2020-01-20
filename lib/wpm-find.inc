@@ -24,7 +24,11 @@ search() {
   echo "=$r=WordPress installations found are as follows:" >> $LOGFILE
   sed 's/^/=$r=/' $TEMPDIR/wordpress_installs.list >> $LOGFILE
 
-  printf "\n Orphaned wp-config.php file directories are listed in $TEMPDIR/orphans.list \n\n"
+  if [ -s $TEMPDIR/orphans.list ]; then
+  	printf "\n Orphaned wp-config.php file directories are listed in $TEMPDIR/orphans.list \n\n"
+  else
+  	printf "\n No orphaned wp-config.php files detected, which is good \n\n"
+  fi
 
   unset line
   unset path
