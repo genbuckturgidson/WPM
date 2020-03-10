@@ -47,7 +47,7 @@ function password() {
   
   if [ "$VIEW" == "yes" ]; then
   	echo "View option selected, -d and -u ignored"
-  	try mysql $DATABASENAME -e "select \`user_login\` from wp_users where \`disabled\`='0' or \`user_status\`='0';"
+  	try mysql $DATABASENAME -e "select \`user_login\` from wp_users where \`user_status\`='0';"
   fi
 
   if mysql -e "SELECT EXISTS(SELECT 1 FROM $DATABASENAME.wp_users WHERE user_login='$USERNAME' LIMIT 1)"; then
