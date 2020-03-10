@@ -4,106 +4,97 @@
 
 function password() {
 
-	POSIT=()
-	while [[ $# -gt 0 ]]
-	do
-		key="$1"
-  	case $key in
-    	-d|--duration) duration=$2 ; shift ;;
-    	-u|--username) username=$2 ; shift ;;
-    	-v|--view) VIEW="yes" ;;
-    	-p|--path) path=$2 ; shift ;;
-    	*) echo "$1 not implemented" ; POSIT+=("$1") ;;
+  while [[ $# -gt 0 ]]
+  do
+    KEY="$1"
+  	case $KEY in
+      -d|--duration) DURATION=$2 ; shift ;;
+      -u|--username) USERNAME=$2 ; shift ;;
+      -v|--view) VIEW="yes" ;;
+      -p|--path) DIRECTORY=$2 ; shift ;;
+      *) echo "$1 not implemented" ; POSIT+=("$1") ;;
     esac
     shift
   done
-  set -- "${POSIT[@]}"
 
-	path="${path:-`pwd`}"
-	username="${username:-admin}"
+  DIRECTORY=${DIRECTORY:-`pwd`}
+  USERNAME=${USERNAME:-admin}
+  VIEW=${VIEW:-no}
+  DURATION=${DURATION:-0}
 
-  [ -f $path/wp-config.php ] || echo "this isn't a wordpress installation"
-  [ -f $path/wp-config.php ] || exit 1
+  [ -f $DIRECTORY/wp-config.php ] || echo "this isn't a wordpress installation"
+  [ -f $DIRECTORY/wp-config.php ] || exit 1
 
-  local dt=`date +%Y%m%d.%H%M`
+  local DT=`date +%Y%m%d.%H%M`
 
-  echo "==WPM TEMPPASS CALLED ON $dt WITH VERSION $WPMVERSION==" >> $LOGFILE
+  echo "==WPM TEMPPASS CALLED ON $DT WITH VERSION $WPMVERSION==" >> $LOGFILE
   echo "==UNIQUE IDENTIFIER $r==" >> $LOGFILE
   echo "=$r=Executing temppass on $path" >> $LOGFILE
 
-  cd $path
-  local dbname=`grep DB_NAME wp-config.php | cut -f 2 -d ' ' | awk -F "'" '{print $2}'`
-  echo "=$r=The DB name is $dbname" >> $LOGFILE
+  cd $DIRECTORY
+  local DATABASENAME=`grep DB_NAME wp-config.php | cut -f 2 -d ',' | cut -f 2 -d "'"`
+  echo "=$r=The DB name is $DATABASENAME" >> $LOGFILE
 
-  if mysql "${dbname}" >/dev/null 2>&1 </dev/null; then
-    echo "${dbname} exists (and I have permission to access it)"
+  if mysql "${DATABASENAME}" >/dev/null 2>&1 </dev/null; then
+    echo "${DATABASENAME} exists (and I have permission to access it)"
     echo "=$r=DB exists and I have perms to it" >> $LOGFILE
   else
-    echo "${dbname} does not exist (or I do not have permission to access it)"
+    echo "${DATABASENAME} does not exist (or I do not have permission to access it)"
     echo "refusing to continue"
-    echo "=$r=DB error on $dbname. Terminating." >> $LOGFILE
+    echo "=$r=DB error on $DATABASENAME. Terminating." >> $LOGFILE
     exit 1
   fi
   
   if [ "$VIEW" == "yes" ]; then
   	echo "View option selected, -d and -u ignored"
-  	try mysql $dbname -e "select `user_login` from wp_users where `disabled`='0' or `user_status`='0'\G"
-  	exit 0
+  	try mysql $ -e "select `user_login` from wp_users where `disabled`='0' or `user_status`='0'\G"
   fi
 
-  if mysql -e "SELECT EXISTS(SELECT 1 FROM $dbname.wp_users WHERE user_login='$username' LIMIT 1)"; then
-    local prevpass=`mysql -e "use $dbname; select user_pass from wp_users where user_login='$username' limit 1;" | grep -v grep | grep -v user_pass`
+  if mysql -e "SELECT EXISTS(SELECT 1 FROM $DATABASENAME.wp_users WHERE user_login='$USERNAME' LIMIT 1)"; then
+    local PREVIOUSPASSWORDHASH=`mysql -e "use $DATABASENAME; select user_pass from wp_users where user_login='$USERNAME' limit 1;" | grep -v grep | grep -v user_pass`
   else
-    echo "The user $username was not found, refusing to continue"
-    echo "=$r=The specified user $username was not found. Terminating." >> $LOGFILE
+    echo "The user $USERNAME was not found, refusing to continue"
+    echo "=$r=The specified user $USERNAME was not found. Terminating." >> $LOGFILE
     exit 1
   fi
 
-  if [ -z $prevpass ];then
+  if [ -z $PREVIOUSPASSWORDHASH ];then
     echo "something's wrong. refusing to continue."
     echo "=$r=Prevpass issue detected. Dying." >> $LOGFILE
     exit 1
   fi
 
-  echo "=$r=Got the previous user password $prevpass" >> $LOGFILE
-  echo "user password retrieval found: $prevpass"
+  echo "=$r=Got the previous user password $PREVIOUSPASSWORDHASH" >> $LOGFILE
+  echo "user password retrieval found: $PREVIOUSPASSWORDHASH"
 
-  local password=`openssl rand -hex 10`
-  echo "temporary password will be $password"
+  local PASSWORD=`openssl rand -hex 10`
+  echo "temporary password will be $PASSWORD"
 
-  try mysql -e "use $dbname; update wp_users set user_pass = MD5('$password') where user_login='$username';"
+  try mysql -e "use $DATABASENAME; update wp_users set user_pass = MD5('$PASSWORD') where user_login='$USERNAME';"
 
   echo "=$r=Temporary password has been set" >> $LOGFILE
 
-  if [ ! -z $duration ] && [ ! "$duration" == "0" ];then
-    echo "=$r=Sleeping for $duration" >> $LOGFILE
-    echo "sleeping for $duration"
-    sleep $duration
-  elif [ "$duration" == "0" ]; then
+  if [ ! -z $DURATION ] && [ ! "$DURATION" == "0" ];then
+    echo "=$r=Sleeping for $DURATION" >> $LOGFILE
+    echo "sleeping for $DURATION"
+    sleep $DURATION
+  elif [ "$DURATION" == "0" ]; then
     echo "=$r=duration zero, do not revert" >> $LOGFILE
     echo "duration set to zero, meaning no reverting to old pass"
     echo "if this was in error, the old hashed pass is in the log"
-    norevert="1"
+    NOREVERT="1"
   else
     echo "=$r=No duration provided, default to 10 minutes" >> $LOGFILE
     echo "no duration provided, defaulting to 10 minutes"
     sleep 600
   fi
 
-  if [ ! -z $norevert ]; then
+  if [ ! -z $NOREVERT ]; then
     echo "reverting password"
     echo "=$r=Reverting the password" >> $LOGFILE
-    try mysql -e "use $dbname; update wp_users set user_pass='$prevpass' where user_login='$username';"
+    try mysql -e "use $DATABASENAME; update wp_users set user_pass='$PREVIOUSPASSWORDHASH' where user_login='$USERNAME';"
     echo "=$r=password has been reverted" >> $LOGFILE
     echo "password reverted"
   fi
-
-  unset username
-  unset duration
-  unset dt
-  unset dbname
-  unset prevpass
-  unset password
-  unset path
 
 } # END PASSWORD
