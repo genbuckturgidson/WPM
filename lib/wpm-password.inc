@@ -47,11 +47,11 @@ function password() {
   
   if [ "$VIEW" == "yes" ]; then
   	echo "View option selected, -d and -u ignored"
-  	try mysql $ -e "select `user_login` from wp_users where `disabled`='0' or `user_status`='0'\G"
+  	try mysql $DATABASENAME -e "select \`user_login\` from wp_users where \`disabled\`='0' or \`user_status\`='0';"
   fi
 
   if mysql -e "SELECT EXISTS(SELECT 1 FROM $DATABASENAME.wp_users WHERE user_login='$USERNAME' LIMIT 1)"; then
-    local PREVIOUSPASSWORDHASH=`mysql -e "use $DATABASENAME; select user_pass from wp_users where user_login='$USERNAME' limit 1;" | grep -v grep | grep -v user_pass`
+    local PREVIOUSPASSWORDHASH=`mysql $DATABASENAME -e "select user_pass from wp_users where user_login='$USERNAME' limit 1;" | grep -v grep | grep -v user_pass`
   else
     echo "The user $USERNAME was not found, refusing to continue"
     echo "=$r=The specified user $USERNAME was not found. Terminating." >> $LOGFILE
