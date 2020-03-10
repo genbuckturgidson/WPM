@@ -20,7 +20,7 @@ function password() {
   DIRECTORY=${DIRECTORY:-`pwd`}
   USERNAME=${USERNAME:-admin}
   VIEW=${VIEW:-no}
-  DURATION=${DURATION:-0}
+  DURATION=${DURATION:-600s}
 
   [ -f $DIRECTORY/wp-config.php ] || echo "this isn't a wordpress installation"
   [ -f $DIRECTORY/wp-config.php ] || exit 1
@@ -85,9 +85,8 @@ function password() {
     echo "if this was in error, the old hashed pass is in the log"
     NOREVERT="1"
   else
-    echo "=$r=No duration provided, default to 10 minutes" >> $LOGFILE
-    echo "no duration provided, defaulting to 10 minutes"
-    sleep 600
+    echo "Huh? Something weird just happened with the DURATION variable."
+    exit 1
   fi
 
   if [ ! -z $NOREVERT ]; then
