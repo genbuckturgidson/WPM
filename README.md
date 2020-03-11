@@ -6,7 +6,7 @@
 
 **Project Started**: 20131222
 
-**Project Updated**: 20191118
+**Project Updated**: 20200311
 
 **Project Name**: WordPress Mangler
 
@@ -31,7 +31,7 @@ As root, just type `make install` within this archive. There is one configurable
 So, `wpm --help` will show you this:
 
 ```
-wpm version 4.0.1
+wpm version 4.0.2
 usage:
   -b | --backup	 backup a wordpress installation 
 	 -n | --no-compress    	 the xz or gz container won't actually be compressed 
@@ -108,7 +108,7 @@ The `--delete` function will **NOT** remove the FTP user used for ftpsockets.
 
 ### LICENSE
 
-Copyright MMXIX, Bradford Morgan White
+Copyright MMXIII - MMXX, Bradford Morgan White
 
 Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
 
