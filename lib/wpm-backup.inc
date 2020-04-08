@@ -101,7 +101,7 @@ function backup() {
   fi
   
   if [ "$skip_uploads" == "y" ]; then
-  	excludes="--exclude=wp-content/uploads"
+  	excludes='--exclude=./wp-content/uploads'
   else
   	excludes=""
   fi
@@ -124,7 +124,7 @@ function backup() {
   [ `which getfacl` ] && echo "permissions backup completed."
   [ `which getfacl` ] && echo "the backup can be restored with setfacl --restore=${1}/.permissions_backup.${dt}"
 
-  CMD="try tar $tar_options - ./* $TEMPDIR/$dbname.$dt.sql $excludes | $intermediate_pred $pred"
+  CMD="try tar $tar_options $excludes - ./* $TEMPDIR/$dbname.$dt.sql | $intermediate_pred $pred"
   
   eval $CMD
 
