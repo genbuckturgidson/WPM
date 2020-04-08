@@ -14,6 +14,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="SET_USER_NAME_GLOBALLY" value="false" />
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
@@ -25,7 +26,9 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="SvnConfiguration">
@@ -40,5 +43,15 @@
       <updated>1586357979272</updated>
     </task>
     <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1040" y="277" key="CommitChangelistDialog2" timestamp="1586358334798">
+      <screen x="0" y="23" width="2560" height="1337" />
+    </state>
+    <state x="1040" y="277" key="CommitChangelistDialog2/0.23.2560.1337@0.23.2560.1337" timestamp="1586358334798" />
+    <state x="995" y="415" key="Vcs.Push.Dialog.v2" timestamp="1586358338509">
+      <screen x="0" y="23" width="2560" height="1337" />
+    </state>
+    <state x="995" y="415" key="Vcs.Push.Dialog.v2/0.23.2560.1337@0.23.2560.1337" timestamp="1586358338509" />
   </component>
 </project>
