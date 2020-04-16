@@ -19,10 +19,16 @@ function backup() {
 	done
 	set -- "${POSIT[@]}"
 
-	no_compress="${no_compress:-n}"
 	delete_old="${delete_old:-n}"
 	skip_uploads="${skip_uploads:-n}"
 	path="${path:-`pwd`}"
+
+  MEMORY=$( echo $((`cat /proc/meminfo | grep MemTotal | awk '{print $2}'`/1024)) )
+  if [[ $MEMORY -lt 675 ]]; then
+    no_compress="y"
+  else
+    no_compress="${no_compress:-n}"
+  fi
 
   [ -f $path/wp-config.php ] || echo "this isn't a wordpress installation"
   [ -f $path/wp-config.php ] || exit 1
@@ -124,7 +130,7 @@ function backup() {
   [ `which getfacl` ] && echo "permissions backup completed."
   [ `which getfacl` ] && echo "the backup can be restored with setfacl --restore=${1}/.permissions_backup.${dt}"
 
-  CMD="try tar $tar_options $excludes - ./* $TEMPDIR/$dbname.$dt.sql | $intermediate_pred $pred"
+  CMD="try tar $excludes --transform "flags=r;s|^|$dt|" $tar_options - ./* $TEMPDIR/$dbname.$dt.sql | $intermediate_pred $pred"
   
   eval $CMD
 
@@ -132,18 +138,5 @@ function backup() {
 
   echo "=$r=Archive created $name.$dt.tar.xz" >> $LOGFILE
   echo "The archive is available at $BACKUPPATH/$name.$dt.tar.xz"
-
-  unset sn
-  unset sf
-  unset sb
-  unset dt
-  unset name
-  unset dbname
-  unset path
-  unset no_compress
-  unset skip_uploads
-  unset delete_old
-  unset compressor
-  unset progress
 
 } # END BACKUP

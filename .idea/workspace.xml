@@ -2,6 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b3e5a3c6-5a4b-4197-979d-23dbf0755274" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/wpm.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bin/wpm.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/wpm-backup.inc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/wpm-backup.inc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -22,7 +26,6 @@
   <component name="ProjectId" id="1aGNTfF6mRDDQj0zIT287ZCJe6C" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -42,16 +45,40 @@
       <option name="presentableId" value="Default" />
       <updated>1586357979272</updated>
     </task>
+    <task id="LOCAL-00001" summary="attempt to fix bug with backup -s">
+      <created>1586358334950</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1586358334950</updated>
+    </task>
+    <task id="LOCAL-00002" summary="date modified update">
+      <created>1586358409623</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1586358409623</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="attempt to fix bug with backup -s" />
+    <MESSAGE value="date modified update" />
+    <option name="LAST_COMMIT_MESSAGE" value="date modified update" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="1040" y="277" key="CommitChangelistDialog2" timestamp="1586358334798">
+    <state x="1139" y="486" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1587045550449">
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
-    <state x="1040" y="277" key="CommitChangelistDialog2/0.23.2560.1337@0.23.2560.1337" timestamp="1586358334798" />
-    <state x="995" y="415" key="Vcs.Push.Dialog.v2" timestamp="1586358338509">
+    <state x="1139" y="486" key="#com.intellij.fileTypes.FileTypeChooser/0.23.2560.1337@0.23.2560.1337" timestamp="1587045550449" />
+    <state x="1040" y="277" key="CommitChangelistDialog2" timestamp="1586358409494">
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
-    <state x="995" y="415" key="Vcs.Push.Dialog.v2/0.23.2560.1337@0.23.2560.1337" timestamp="1586358338509" />
+    <state x="1040" y="277" key="CommitChangelistDialog2/0.23.2560.1337@0.23.2560.1337" timestamp="1586358409494" />
+    <state x="995" y="415" key="Vcs.Push.Dialog.v2" timestamp="1586358413798">
+      <screen x="0" y="23" width="2560" height="1337" />
+    </state>
+    <state x="995" y="415" key="Vcs.Push.Dialog.v2/0.23.2560.1337@0.23.2560.1337" timestamp="1586358413798" />
   </component>
 </project>

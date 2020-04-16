@@ -19,7 +19,7 @@
 ############################
 
 scream() { echo "$0: $*" >&2 | tee -a $LOGFILE; }
-die() { scream "$*"; exit 666; }
+die() { scream "$*"; exit 1; }
 try() { "$@" || die "cannot $*"; }
 
 #############################
@@ -64,9 +64,6 @@ if [ -z $SELECTED_GROUP ]; then
   [[ -z $h ]] || SELECTED_GROUP=`id -g $h`
   [[ -z $a ]] || SELECTED_GROUP=`id -g $a`
   [ -z $SELECTED_GROUP ] && echo "no selected group found, please set it in  6b4178521b3f/etc/wpm/wpm.conf"
-  unset n
-  unset h
-  unset a
 fi
 
 ######################
