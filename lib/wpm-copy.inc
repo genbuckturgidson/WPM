@@ -4,107 +4,93 @@
 
 function copy() {
 
-	POSIT=()
-	while [[ $# -gt 0 ]]
-	do
-		key="$1"
-		case $key in
-    	-o|--oldname) OLDN=$2; shift;;
-    	-n|--newname) NEWN=$2; shift;;
-    	-s|--source) OLDP=$2; shift;;
-    	-d|--destination) NEWP=$2; shift ;;
-    	*) echo "$1 not implemented" ; POSIT+=("$1") ;;
+  POSIT=()
+  while [[ $# -gt 0 ]]; do
+    KEY="$1"
+	case $KEY in
+      -o|--oldname) OLDNAME=$2; shift;;
+      -n|--newname) NEWNAME=$2; shift;;
+      -s|--source) SOURCE=$2; shift;;
+      -d|--destination) DESTDIR=$2; shift ;;
+      *) echo "$1 not implemented" ; POSIT+=("$1") ;;
     esac
     shift
   done
   set -- "${POSIT[@]}"
 
-  [ -d $OLDP ] || echo "old directory does not exist"
-  [ -d $OLDP ] || exit 1
+  [ -d $SOURCE ] || echo "source directory does not exist"
+  [ -d $SOURCE ] || exit 1
 
-  [ -f $OLDP/wp-config.php ] || echo "this isn't a wordpress installation"
-  [ -f $OLDP/wp-config.php ] || exit 1
+  [ -f $SOURCE/wp-config.php ] || echo "this isn't a wordpress installation"
+  [ -f $SOURCE/wp-config.php ] || exit 1
 
-  local dt=`date +%Y%m%d.%H%M`
+  local DATETIME=`date +%Y%m%d.%H%M`
 
-  echo "==WPM COPY CALLED ON $dt WITH VERSION $WPVERSION==" >> $LOGFILE
-  echo "==UNIQUE IDENTIFIER $r==" >> $LOGFILE
-  echo "=$r=Executing copy from $OLD to $NEWP" >> $LOGFILE
+  echo "==WPM COPY CALLED ON $DATETIME WITH VERSION $WPVERSION==" | tee -a $LOGFILE
+  echo "==UNIQUE IDENTIFIER $INSTANCEID==" | tee -a $LOGFILE
+  echo "==$INSTANCEID==Executing copy from $SOURCE to $DESTDIR" | tee -a $LOGFILE
 
-  [ -d $NEWP ] || try mkdir -p $NEWP
+  [ -d $DESTDIR ] || try mkdir -p $DESTDIR
+  try rsync -aq $SOURCE/* $DESTDIR
+  echo "==$INSTANCEID==File copy complete." | tee -a $LOGFILE
 
-  echo "copying site from $OLDP to $NEWP"
-  try rsync -aq $OLDP/* $NEWP
+  cd $DESTDIR
 
-  cd $NEWP
-  echo "file copy complete"
-  echo "doing DB dump"
+  local DBNAME=`grep DB_NAME wp-config.php | awk -F "'" '{print $4}'`
+  local DBUSER=`grep DB_USER wp-config.php | awk -F "'" '{print $4}'`
 
-  local dbname=`grep DB_NAME wp-config.php | awk -F "'" '{print $4}'`
-  local dbuser=`grep DB_USER wp-config.php | awk -F "'" '{print $4}'`
-
-  echo "=$r=Database $dbname with $dbuser being dumped" >> $LOGFILE
-  if mysql "${dbname}" >/dev/null 2>&1 </dev/null; then
-    echo "${dbname} exists (and I have permission to access it)"
-    echo "=$r=DB exists and I have access to it" >> $LOGFILE
+  echo "==$INSTANCEID==Database $DBNAME with user $DBUSER." | tee -a $LOGFILE
+  if mysql "${DBNAME}" >/dev/null 2>&1 </dev/null; then
+    echo "==$INSTANCEID==DB ${DBNAME} exists and I have access to it" | tee -a $LOGFILE
   else
-    echo "${dbname} does not exist (or I do not have permission to access it)"
-    echo "refusing to continue"
-    echo "=$r=DB doesn't exist, or I can't access it. Terminating." >> $LOGFILE
+    echo "==$INSTANCEID==${DBNAME} doesn't exist, or I can't access it. Terminating." | tee -a $LOGFILE
     exit 1
   fi
 
-  try mysqldump $dbname --single-transaction > $TEMPDIR/$dbname.sql
+  try mysqldump $DBNAME --single-transaction > $TEMPDIR/$DBNAME.sql
+  echo "==$INSTANCEID==DB dump to SQL file is complete." | tee -a $LOGFILE
 
-  echo "doing find/replace"
-  echo "=$r=changing $OLDP to $NEWP" >> $LOGFILE
-
-  try find . -type f -exec sed -i "s/$OLDP/$NEWP/g" {} +
-  try sed -i "s|$OLDP|$NEWP|g" $TEMPDIR/$dbname.sql
-
-  echo "fixing serialized php array values"
-  echo "=$r=Running fixserial on $TEMPDIR/$dbname.sql" >> $LOGFILE
-  try 6b4178521b3f/lib/fixserial.sh -o $OLDN -n $NEWN -f $TEMPDIR/$dbname.sql
-
-  [ -e "$OLDP/.htaccess" ] && cp -v $OLDP/.htaccess $NEWP/.htaccess || echo "no htaccess file in old docroot"
-  [ -d "$OLDP/.ssh" ] && cp -vR $OLDP/.ssh $NEWP/ || echo "no ssh directory in old docroot"
-  [ -e "$OLDP/wp-content/uploads/.htaccess" ] && cp -v $OLDP/wp-content/uploads/.htaccess $NEWP/wp-content/uploads/.htaccess || echo "no htaccess in old uploads directory"
-
-  echo "doing DB import"
-  local newdb=${dbname}
-  newdb+=`openssl rand -hex 2`
-
-  if mysql "${newdb}" >/dev/null 2>&1 </dev/null;then
-    echo "$newdb already exists, refusing to continue"
-    echo "=$r=$newdb somehow already exists. Terminating." >> $LOGFILE
-    exit 1
-  fi
-
-  echo "=$r=Running DB import to $newdb" >> $LOGFILE
-  try mysql -e "create database $newdb"
-  try mysql -e "grant all on $newdb.* to $dbuser"
-  try mysql -e "flush privileges"
-  try mysql "$newdb" < $TEMPDIR/$dbname.sql
+  echo "==$INSTANCEID==Changing $SOURCE to $DESTDIR with sed" | tee -a $LOGFILE
+  try find `pwd` -type f -exec sed -i "s/$SOURCE/$DESTDIR/g" '{}' \;
+  try sed -i "s|$SOURCE|$DESTDIR|g" $TEMPDIR/$DBNAME.sql
+  echo "==$INSTANCEID==Sed complete." | tee -a $LOGFILE
   
-  rm -f $TEMPDIR/$dbname.sql
+  echo "==$INSTANCEID==Running fixserial on $TEMPDIR/$DBNAME.sql" | tee -a $LOGFILE
+  try 6b4178521b3f/lib/fixserial.sh -o $OLDNAME -n $NEWNAME -f $TEMPDIR/$DBNAME.sql
+  echo "==$INSTANCEID==Fixserial has been run." | tee -a $LOGFILE
 
-  try sed -i "s/DB_NAME', '$dbnmame/DB_NAME', '$newdb/" $NEWP/wp-config.php
+  [ -e "$SOURCE/.htaccess" ] && cp -v $SOURCE/.htaccess $DESTDIR/.htaccess
+  [ -d "$SOURCE/.ssh" ] && cp -vR $SOURCE/.ssh $DESTDIR/
+  [ -e "$SOURCE/wp-content/uploads/.htaccess" ] && cp -v $SOURCE/wp-content/uploads/.htaccess $DESTDIR/wp-content/uploads/.htaccess
+  echo "==$INSTANCEID==Dot files copied (if they existed)." | tee -a $LOGFILE
+  
+  local NEWDB=${DBNAME}
+  NEWDB+=`openssl rand -hex 2`
+  echo "==$INSTANCEID==New database name is ${NEWDB}" | tee -a $LOGFILE
 
-  echo "=$r=Running permissions" >> $LOGFILE
-  try chown --reference=$OLDP $NEWP
-  permissions $NEWP
+  if mysql "${NEWDB}" >/dev/null 2>&1 </dev/null;then
+    echo "==$INSTANCEID==${NEWDB} somehow already exists. Terminating." | tee -a $LOGFILE
+    exit 1
+  fi
 
-  echo "=$r=Copy of $OLDN to $NEWN completed" >> $LOGFILE
-  echo "copy complete"
+  echo "==$INSTANCEID==Running DB import to ${NEWDB}" | tee -a $LOGFILE
+  try mysql -e "create database ${NEWDB}"
+  try mysql -e "grant all on ${NEWDB}.* to ${DBUSER}"
+  try mysql -e "flush privileges"
+  try mysql "${NEWDB}" < $TEMPDIR/${DBNAME}.sql
+  echo "==$INSTANCEID==DB import to ${NEWDB} is complete." | tee -a $LOGFILE
+  
+  rm -f $TEMPDIR/${DBNAME}.sql
+  echo "==$INSTANCEID==SQL file has been removed." | tee -a $LOGFILE
 
-  unset dt
-  unset dbname
-  unset dbuser
-  unset newdb
-  unset TMP
-  unset OLDP
-  unset NEWP
-  unset OLDN
-  unset NEWN
+  try sed -i "s/DB_NAME', '${DBNAME}/DB_NAME', '${NEWDB}/" $DESTDIR/wp-config.php
+  echo "==$INSTANCEID==Config file updated with new database." | tee -a $LOGFILE
+
+  echo "==$INSTANCEID==Running permissions" | tee -a $LOGFILE
+  try chown --reference=$SOURCE $DESTDIR
+  permissions $DESTDIR
+  echo "==$INSTANCEID==Permissions complete." | tee -a $LOGFILE
+
+  echo "==$INSTANCEID==Copy of $OLDNAME to $NEWNAME completed." | tee -a $LOGFILE
 
 } # END COPY

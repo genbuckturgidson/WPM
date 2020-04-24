@@ -3,78 +3,67 @@
 #######################
 
 function delete() {
-
-	POSIT=()
-	while [[ $# -gt 0 ]]
-	do
-		key="$1"
-  	case $key in
-    	-b|--backup) do_backup="y" ;;
-    	-p|--path) path=$2 ; shift ;;
-    	*) echo "$1 not implemented" ; POSIT+=("$1") ;;
+  POSIT=();
+  while [[ $# -gt 0 ]]; do
+    KEY="$1"
+  	case $KEY in
+      -b|--backup) DOBACKUP="yes" ;;
+      -p|--path) DIRECTORY=$2 ; shift ;;
+      *) echo "$1 not implemented" ; POSIT+=("$1") ;;
     esac
     shift
   done
   set -- "${POSIT[@]}"
 
-  [ -z $path ] && echo "You must provide a full path"
-  [ -z $path ] && exit 1
+  [ -z $DIRECTORY ] && echo "You must provide a full path"
+  [ -z $DIRECTORY ] && exit 1
 
-  [ -d $path ] || echo "directory does not exist"
-  [ -d $path ] || exit 1
+  [ -d $DIRECTORY ] || echo "directory does not exist"
+  [ -d $DIRECTORY ] || exit 1
 
-  [ -f $path/wp-config.php ] || echo "this isn't a wordpress installation"
-  [ -f $path/wp-config.php ] || exit 1
+  [ -f $DIRECTORY/wp-config.php ] || echo "this isn't a wordpress installation"
+  [ -f $DIRECTORY/wp-config.php ] || exit 1
 
-  local dt=`date +%Y%m%d.%H%M`
+  local DATETIME=`date +%Y%m%d.%H%M`
 
-  echo "==WPM DELETE CALLED ON $dt WITH VERSION $WPMVERSION==" >> $LOGFILE
-  echo "==UNIQUE IDENTIFIER $r==" >> $LOGFILE
-  echo "=$r=Executing delete on $path" >> $LOGFILE
+  echo "==WPM DELETE CALLED ON $DATETIME WITH VERSION $WPMVERSION==" >> $LOGFILE
+  echo "==UNIQUE IDENTIFIER $INSTANCEID==" >> $LOGFILE
+  echo "=$INSTANCEID=Executing delete on $DIRECTORY" >> $LOGFILE
 
-  if [ "$do_backup" == "y" ];then
+  if [ "$DOBACKUP" == "yes" ];then
     backup -p `pwd`
   else
-    echo "backup declined."
+    echo "==$INSTANCEID==WARNING: BACKUP HAS BEEN DECLINED!" | tee -a $LOGFILE
   fi
 
-  cd $path
+  cd $DIRECTORY
 
-  local dbname=`grep DB_NAME wp-config.php | cut -f 2 -d ' ' | awk -F "'" '{print $2}'`
-  echo "=$r=The DB name is $dbname" >> $LOGFILE
+  local DBNAME=`grep DB_NAME wp-config.php | cut -f 2 -d ' ' | awk -F "'" '{print $2}'`
+  echo "==$INSTANCEID==The DB name is $DBNAME" | tee -a $LOGFILE
 
-  local dbuser=`grep DB_USER wp-config.php | cut -f 2 -d ' ' | awk -F "'" '{print $2}'`
-  echo "=$r=The DB user is $dbuser" >> $LOGFILE
+  local DBUSER=`grep DB_USER wp-config.php | cut -f 2 -d ' ' | awk -F "'" '{print $2}'`
+  echo "==$INSTANCEID==The DB user is $DBUSER" | tee -a $LOGFILE
 
-  if mysql "${dbname}" >/dev/null 2>&1 </dev/null; then
-    echo "${dbname} exists (and I have permission to access it)"
+  if mysql "${DBNAME}" >/dev/null 2>&1 </dev/null; then
+    echo "==$INSTANCEID==${DBNAME} exists (and I have permission to access it)" | tee -a $LOGFILE
   else
-    echo "${dbname} does not exist (or I do not have permission to access it)"
-    echo "=$r=$dbname doesn't exist or I lack access" >> $LOGFILE
+    echo "==$INSTANCEID==${DBNAME} doesn't exist or I lack access" | tee -a $LOGFILE
   fi
 
-  mysql -e "DELETE FROM mysql.user WHERE \`user\`=\"$dbuser\";"
+  mysql -e "DELETE FROM mysql.user WHERE \`user\`=\"${DBUSER}\";"
   mysql -e "FLUSH PRIVILEGES;"
-  echo "=$r=Database user $dbuser has been deleted" >> $LOGFILE
+  echo "==$INSTANCEID==Database user ${DBUSER} has been deleted" | tee -a $LOGFILE
 
-  mysql -e "DROP DATABASE IF EXISTS $dbname;"
-  echo "=$r=Database $dbname has been dropped" >> $LOGFILE
+  mysql -e "DROP DATABASE IF EXISTS ${DBNAME};"
+  echo "==$INSTANCEID==Database ${DBNAME} has been dropped" | tee -a $LOGFILE
 
   cd ..
 
-  try rm -rf $path/*
-  try rm -rf $path
+  try rm -rf $DIRECTORY/*
+  try rm -rf $DIRECTORY
 
-  echo "=$r=Removal of document root contents completed" >> $LOGFILE
+  echo "==$INSTANCEID==Removal of document root contents completed." | tee -a $LOGFILE
 
-  echo "=$r=Delete process has completed" >> $LOGFILE
-
-  echo "Deletion of $path as well as DB $dbname and DB USER $dbuser is complete"
-
-  unset dt
-  unset dbname
-  unset dbuser
-  unset do_backup
-  unset path
+  echo "==$INSTANCEID==Deletion: $DIRECTORY, $DBNAME, $DBUSER; completed." | tee -a $LOGFILE
 
 } # END DELETE

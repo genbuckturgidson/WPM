@@ -12,23 +12,22 @@ function settings() {
   [ -z "$1" ] && echo "please provide a setting"
   [ -z "$1" ] && exit 1
 
-  local dt=`date +%Y%m%d.%H%M`
+  local DATETIME=`date +%Y%m%d.%H%M`
 
-  echo "==WPM SETTINGS CALLED ON $dt WITH VERSION $WPVERSION==" >> $LOGFILE
-  echo "==UNIQUE IDENTIFIER $r==" >> $LOGFILE
-  echo "=$r=Executing settings on 6b4178521b3f/etc/wpm/wpm.conf" >> $LOGFILE
+  echo "==WPM SETTINGS CALLED ON $DATETIME WITH VERSION $WPVERSION==" | tee -a $LOGFILE
+  echo "==UNIQUE IDENTIFIER $INSTANCEID==" | tee -a $LOGFILE
+  echo "==$INSTANCEID==Executing settings on 6b4178521b3f/etc/wpm/wpm.conf" | tee -a $LOGFILE
 
-  try cp -v 6b4178521b3f/etc/wpm/wpm.conf 6b4178521b3f/etc/wpm/wpm.${dt}.bak
+  try cp -v 6b4178521b3f/etc/wpm/wpm.conf 6b4178521b3f/etc/wpm/wpm.${DATETIME}.bak
 
-  echo "=$r=Backup of wpm.conf made @ 6b4178521b3f/etc/wpm/wpm.${dt}.bak" >> $LOGFILE
+  echo "==$INSTANCEID==Backup of wpm.conf made @ 6b4178521b3f/etc/wpm/wpm.${DATETIME}.bak" | tee -a $LOGFILE
 
-  for var in "$@"; do
-    match=`echo $var | awk -F '=' '{print $1}'`
-    echo "${var}"
-    try sed -i "s/^${match}.*/${var}/g" 6b4178521b3f/etc/wpm/wpm.conf
+  for VAR in "$@"; do
+    MATCH=`echo $VAR | awk -F '=' '{print $1}'`
+    echo "${VAR}"
+    try sed -i "s/^${MATCH}.*/${VAR}/g" 6b4178521b3f/etc/wpm/wpm.conf
   done
-
-  unset match
-  unset dt
+  
+  echo "==$INSTANCEID==Settings function complete." | tee -a $LOGFILE
 
 } # END SETTINGS

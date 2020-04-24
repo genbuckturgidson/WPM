@@ -50,19 +50,19 @@ fi
 # SET THE REFERENCE ID FOR LOGGING #
 ####################################
 
-r=`openssl rand -hex 5`
+INSTANCEID=`openssl rand -hex 5`
 
 ###########################################
 # IF USER VARIABLES ARE NOT SET IN CONFIG #
 ###########################################
 
 if [ -z $SELECTED_GROUP ]; then
-  n=`ps -ef | grep nginx | grep -v root | grep -v grep | awk '{print $1}' | sort | uniq`
-  h=`ps -ef | grep httpd | grep -v root | grep -v grep | grep -v tomcat | awk '{print $1}' | sort | uniq`
-  a=`ps -ef | grep apache | grep -v root | grep -v grep | grep -v tomcat | awk '{print $1}' | sort | uniq`
-  [[ -z $n ]] || SELECTED_GROUP=`id -g $n`
-  [[ -z $h ]] || SELECTED_GROUP=`id -g $h`
-  [[ -z $a ]] || SELECTED_GROUP=`id -g $a`
+  NGINX=`ps -ef | grep nginx | grep -v root | grep -v grep | awk '{print $1}' | sort | uniq`
+  HTTPD=`ps -ef | grep httpd | grep -v root | grep -v grep | grep -v tomcat | awk '{print $1}' | sort | uniq`
+  APACHE=`ps -ef | grep apache | grep -v root | grep -v grep | grep -v tomcat | awk '{print $1}' | sort | uniq`
+  [[ -z $NGINX ]] || SELECTED_GROUP=`id -g $NGINX`
+  [[ -z $HTTPD ]] || SELECTED_GROUP=`id -g $HTTPD`
+  [[ -z $APACHE ]] || SELECTED_GROUP=`id -g $APACHE`
   [ -z $SELECTED_GROUP ] && echo "no selected group found, please set it in  6b4178521b3f/etc/wpm/wpm.conf"
 fi
 

@@ -4,34 +4,34 @@
 
 search() {
 
-  [ -z $1 ] && path=`pwd` || path=$1
+  SEARCHDIR="$1"
+  SEARCHDIR=${SEARCHDIR:-/}
+  [ -d $SEARCHDIR ] || SEARCHDIR="/"
 
-  local dt=`date +%Y%m%d.%H%M`
+  local DATETIME=`date +%Y%m%d.%H%M`
 
-  echo "==WPM FIND CALLED ON $dt WITH VERSION $WPVERSION==" >> $LOGFILE
-  echo "==UNIQUE IDENTIFIER $r==" >> $LOGFILE
-  echo "=$r=Executing find on $path" >> $LOGFILE
+  echo "==WPM FIND CALLED ON $DATETIME WITH VERSION $WPVERSION==" | tee -a $LOGFILE
+  echo "==UNIQUE IDENTIFIER $INSTANCEID==" | tee -a $LOGFILE
+  echo "==$INSTANCEID==Executing find on $SEARCHDIR" | tee -a $LOGFILE
 
-  for i in `find $path -type f -iname "wp-config.php" -exec dirname '{}' \; | xargs -0 -I {} echo {}`; do
-  	location=`echo $i | tr -cd "[:print:]"`
-  	if [ -d "$location/wp-content" ]; then
-  		echo $location | tee -a $TEMPDIR/wordpress_installs.list
+  for WPCONFIG in `find $SEARCHDIR -type f -iname "wp-config.php" -exec dirname '{}' \; | xargs -0 -I {} echo {}`; do
+  	DIRECTORY=`echo $WPCONFIG | tr -cd "[:print:]"`
+  	if [ -d "$DIRECTORY/wp-content" ]; then
+  		echo $DIRECTORY | tee -a $TEMPDIR/wordpress_installs.list
   	else
-  		echo $location >> $TEMPDIR/orphans.list
+  		echo $DIRECTORY >> $TEMPDIR/orphans.list
   	fi
   done
 
-  echo "=$r=WordPress installations found are as follows:" >> $LOGFILE
-  sed 's/^/=$r=/' $TEMPDIR/wordpress_installs.list >> $LOGFILE
-
   if [ -s $TEMPDIR/orphans.list ]; then
-  	printf "\n Orphaned wp-config.php file directories are listed in $TEMPDIR/orphans.list \n\n"
+    echo "==$INSTANCEID==Orphaned WordPress installs found:" | tee -a $LOGFILE
+  	cat $TEMPDIR/orphans.list | sed "s/^/==$INSTANCEID==" | tee -a $LOGFILE
+  	echo "==$INSTANCEID==Orphans are in $TEMPDIR/orphans.list" | tee -a $LOGFILE
   else
-  	printf "\n No orphaned wp-config.php files detected, which is good \n\n"
+  	echo "==$INSTANCEID==No orphaned WordPress installs found." | tee -a $LOGFILE
   fi
-
-  unset line
-  unset path
-  unset dt
+  
+  echo "==$INSTANCEID==Results are in $TEMPDIR/wordpress_installs.list" | tee -a $LOGFILE
+  echo "==$INSTANCEID==Search is complete." | tee -a $LOGFILE
 
 } # END SEARCH
