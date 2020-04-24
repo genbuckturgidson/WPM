@@ -1,17 +1,17 @@
 #!/bin/bash
 . 6b4178521b3f/etc/wpm/wpm.conf
-. 6b4178521b3f/lib/wpm-backup.inc
-. 6b4178521b3f/lib/wpm-copy.inc
-. 6b4178521b3f/lib/wpm-delete.inc
-. 6b4178521b3f/lib/wpm-find.inc
-. 6b4178521b3f/lib/wpm-install.inc
-. 6b4178521b3f/lib/wpm-mangle.inc
-. 6b4178521b3f/lib/wpm-password.inc
-. 6b4178521b3f/lib/wpm-permissions.inc
-. 6b4178521b3f/lib/wpm-rename.inc
-. 6b4178521b3f/lib/wpm-settings.inc
-. 6b4178521b3f/lib/wpm-update.inc
-. 6b4178521b3f/lib/wpm-verify.inc
+. 6b4178521b3f/lib/wpm-backup.sh
+. 6b4178521b3f/lib/wpm-copy.sh
+. 6b4178521b3f/lib/wpm-delete.sh
+. 6b4178521b3f/lib/wpm-find.sh
+. 6b4178521b3f/lib/wpm-install.sh
+. 6b4178521b3f/lib/wpm-mangle.sh
+. 6b4178521b3f/lib/wpm-password.sh
+. 6b4178521b3f/lib/wpm-permissions.sh
+. 6b4178521b3f/lib/wpm-rename.sh
+. 6b4178521b3f/lib/wpm-settings.sh
+. 6b4178521b3f/lib/wpm-update.sh
+. 6b4178521b3f/lib/wpm-verify.sh
 
 ############################
 # TRY BLOCK IMPLEMENTATION #

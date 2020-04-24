@@ -90,10 +90,10 @@ function backup() {
   [ `which pv` ] && PROGRESS="pv"
   
   if [ "$PROGRESS" == "pv" ]; then
-  	TAROPTIONS="-cf"
+  	TAROPTIONS="cf"
   	INTERPRED="pv -per -s${SB} |"
   else
-  	TAROPTIONS="-cfv"
+  	TAROPTIONS="cfv"
   	INTERPRED=""
   fi
   
@@ -121,7 +121,7 @@ function backup() {
   [ `which getfacl` ] && echo "==$INSTANCEID==Permissions backup completed." | tee -a $LOGFILE
   [ `which getfacl` ] && echo "==$INSTANCEID==Restore with setfacl --restore=${$DESTDIR}/.permissions_backup.${DATETIME}" | tee -a $LOGFILE
   
-  CMD="try tar $TAROPTIONS - $EXCLUDES --transform=\"flags=r;s|^|$DATETIME|\" --show-transformed * $TEMPDIR/$DBNAME.$DATETIME.sql | $INTERPRED $PRED"
+  CMD="try tar $TAROPTIONS - $EXCLUDES --transform=\"flags=r;s|^|$DATETIME/|\" --show-transformed * $TEMPDIR/$DBNAME.$DATETIME.sql | $INTERPRED $PRED"
   
   eval $CMD
 
