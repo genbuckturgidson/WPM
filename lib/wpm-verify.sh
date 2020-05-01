@@ -70,21 +70,21 @@ function verify() {
 
   	while read LINE; do
       RECORD_FIELD_1=`echo $line | cut -f 1 -d ' '`
-	  RECORD_FIELD_2=`echo $line | cut -f 2 -d ' '`
-	  WP_FILE=`echo $RECORD_FIELD_2 | rev | cut -d '/' -f 1 | rev`
-	  INSTALLED_FIELD_1=`grep "$WP_FILE" $TEMPDIR/verify/$VERSION/installed.lst | cut -f 1 -d ' '`
-	  INSTALLED_FIELD_2=`grep "$WP_FILE" $TEMPDIR/verify/$VERSION/installed.lst | cut -f 2 -d ' '`
-	  if [ "$RECORD_FIELD_1" != "$INSTALLED_FIELD_1" ]; then
-	    echo "==$INSTANCEID==$WP_FILE DIFFERENCE DETECTED!" | tee -a $LOGFILE
-		echo "==$INSTANCEID==DEBUG OUTPUT: record $RECORD_FIELD_2; installed $INSTALLED_FIELD_2" | tee -a $LOGFILE
-		echo "==$INSTANCEID==DEBUG OUTPUT: md5 record $RECORD_FIELD_1; md5 installed $INSTALLED_FIELD_1" | tee -a $LOGFILE
-		if [ "$REPLACE" == "yes" ]; then
-		  try cp $RECORD_FIELD_2 ./$INSTALLED_FIELD_2
-		  echo "==$INSTANCEID==$RECORD_FIELD_2 replaced $INSTALLED_FIELD_2" | tee -a $LOGFILE
-		fi
-	  fi
-	done <$TEMPDIR/verify/$VERSION/record.lst
-	rm -rf $TEMPDIR/verify/$VERSION
+	    RECORD_FIELD_2=`echo $line | cut -f 2 -d ' '`
+	    WP_FILE=`echo $RECORD_FIELD_2 | rev | cut -d '/' -f 1 | rev`
+	    INSTALLED_FIELD_1=`grep "$WP_FILE" $TEMPDIR/verify/$VERSION/installed.lst | cut -f 1 -d ' '`
+	    INSTALLED_FIELD_2=`grep "$WP_FILE" $TEMPDIR/verify/$VERSION/installed.lst | cut -f 2 -d ' '`
+	    if [ "$RECORD_FIELD_1" != "$INSTALLED_FIELD_1" ]; then
+	      echo "==$INSTANCEID==$WP_FILE DIFFERENCE DETECTED!" | tee -a $LOGFILE
+		    echo "==$INSTANCEID==DEBUG OUTPUT: record $RECORD_FIELD_2; installed $INSTALLED_FIELD_2" | tee -a $LOGFILE
+		    echo "==$INSTANCEID==DEBUG OUTPUT: md5 record $RECORD_FIELD_1; md5 installed $INSTALLED_FIELD_1" | tee -a $LOGFILE
+		    if [ "$REPLACE" == "yes" ] && [[ ! "${INSTALLED_FIELD_2}" != *"wp-config.php"* ]]; then
+		      try cp $RECORD_FIELD_2 ./$INSTALLED_FIELD_2
+		      echo "==$INSTANCEID==$RECORD_FIELD_2 replaced $INSTALLED_FIELD_2" | tee -a $LOGFILE
+		    fi
+	    fi
+	  done <$TEMPDIR/verify/$VERSION/record.lst
+	  rm -rf $TEMPDIR/verify/$VERSION
   fi # END IF HASH
 
   ##################

@@ -10,6 +10,9 @@
          variable names are more understandable
          log output and stdout are now the same text
          output is a bit more verbose
+         the usage function is now per-function help, cuz there's too much output
+         the md5 option of verify will now attempt to NOT override wp-config.php\
+         settings function can now be invoked with -e
 
 4.0.2 -- fixed bugs with duration in password function
          fixed orphaned WP install message
