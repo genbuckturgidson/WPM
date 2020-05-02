@@ -71,7 +71,30 @@ function update() {
   fi
 
   if [ "${PLUGINS}" == "yes" ]; then
-    6b4178521b3f/lib/updater.pl --wp-path=$DESTDIR
+
+    PLUGINLIST=$(find wp-content/plugins/ -maxdepth 1 -type d | sed 's#wp-content/plugins/##')
+    for PLUGINNAME in $PLUGINLIST; do
+      curl -L -k -s http://api.wordpress.org/plugins/info/1.0/$PLUGINNAME.xml | grep download_link | cut -c40- | sed s/\].*// >> $TEMPDIR/plugin_update.list
+    done
+    for FILE in $(cat $TEMPDIR/plugin_update.list); do
+      curl -L -k -s -o $TEMPDIR/tmp.zip $FILE
+      unzip -qq -o $TEMPDIR/tmp.zip -d wp-content/plugins/
+      rm /tmp/tmp.zip
+    done
+    rm -f $TEMPDIR/plugin_update.list
+
+    THEMELIST=$(find wp-content/themes/ -maxdepth 1 -type d | sed 's#wp-content/themes/##')
+    for THEMENAME in $THEMELIST; do
+      THEMENAMELENGTH=$(echo $THEMENAME | wc -c)
+      THEMENAMELENGTH=$(($THEMENAMELENGTH-1))
+      curl -L -k -s -d 'action=theme_information&request=O:8:"stdClass":1:{s:4:"slug";s:'$THEMENAMELENGTH':"'$THEMENAME'";}' http://api.wordpress.org/themes/info/1.0/ |sed -n 's|.*http\(.*\)zip.*|http\1zip\n|p' >> $TEMPDIR/theme_update.list
+    done
+    for FILE in $(cat $TEMPDIR/theme_update.list); do
+      curl -L -k -s -o $TEMPDIR/tmp.zip $FILE
+      unzip -qq -o $TEMPDIR/tmp.zip -d wp-content/themes/
+      rm $TEMPDIR/tmp.zip
+    done
+
   fi
 
   if [[ "$SKIPFTP" == "no" ]]; then

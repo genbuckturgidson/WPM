@@ -20,8 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b3e5a3c6-5a4b-4197-979d-23dbf0755274" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/etc/wpm/changelog.txt" beforeDir="false" afterPath="$PROJECT_DIR$/etc/wpm/changelog.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/updater.pl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/wpm-update.sh" beforeDir="false" afterPath="$PROJECT_DIR$/lib/wpm-update.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +107,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588430101547</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="date modified, license version">
+      <created>1588430334502</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1588430334502</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -125,17 +135,18 @@
     <MESSAGE value="License change to Absurd License 2&#10;Two potential bug fixes in -b&#10;Exit code from try function changed to 1" />
     <MESSAGE value="inc files renamed to sh files&#10;make uninstall now uses wildcard globbing in $(LIB)" />
     <MESSAGE value="added --skip-ftp to install &amp; update" />
-    <option name="LAST_COMMIT_MESSAGE" value="added --skip-ftp to install &amp; update" />
+    <MESSAGE value="date modified, license version" />
+    <option name="LAST_COMMIT_MESSAGE" value="date modified, license version" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1139" y="486" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1587045550449">
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
     <state x="1139" y="486" key="#com.intellij.fileTypes.FileTypeChooser/0.23.2560.1337@0.23.2560.1337" timestamp="1587045550449" />
-    <state x="1040" y="267" width="925" height="1001" key="CommitChangelistDialog2" timestamp="1588430101405">
+    <state x="1034" y="181" width="925" height="1001" key="CommitChangelistDialog2" timestamp="1588430334411">
       <screen x="0" y="0" width="2560" height="1406" />
     </state>
-    <state x="1040" y="267" width="925" height="1001" key="CommitChangelistDialog2/0.0.2560.1406@0.0.2560.1406" timestamp="1588430101405" />
+    <state x="1034" y="181" width="925" height="1001" key="CommitChangelistDialog2/0.0.2560.1406@0.0.2560.1406" timestamp="1588430334411" />
     <state x="1040" y="277" key="CommitChangelistDialog2/0.23.2560.1337@0.23.2560.1337" timestamp="1587752347612" />
     <state x="452" y="359" width="424" height="490" key="FileChooserDialogImpl" timestamp="1588428225533">
       <screen x="0" y="0" width="2560" height="1406" />
@@ -145,10 +156,10 @@
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
     <state x="764" y="350" key="SettingsEditor/0.23.2560.1337@0.23.2560.1337" timestamp="1587751929578" />
-    <state x="995" y="412" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1588430107075">
+    <state x="995" y="412" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1588430336717">
       <screen x="0" y="0" width="2560" height="1406" />
     </state>
-    <state x="995" y="412" width="800" height="535" key="Vcs.Push.Dialog.v2/0.0.2560.1406@0.0.2560.1406" timestamp="1588430107075" />
+    <state x="995" y="412" width="800" height="535" key="Vcs.Push.Dialog.v2/0.0.2560.1406@0.0.2560.1406" timestamp="1588430336717" />
     <state x="995" y="415" key="Vcs.Push.Dialog.v2/0.23.2560.1337@0.23.2560.1337" timestamp="1587752356141" />
     <state x="1058" y="640" width="453" height="182" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1588354779012">
       <screen x="0" y="0" width="2560" height="1406" />

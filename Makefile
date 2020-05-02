@@ -9,7 +9,6 @@ install:
 	install -m 500 ./bin/wpm.sh $(BIN)/
 	ln -s $(BIN)/wpm.sh $(BIN)/wpm
 	install -m 500 ./lib/fixserial.sh $(LIB)/
-	install -m 500 ./lib/updater.pl $(LIB)/
 	install -m 400 ./lib/wpm-backup.sh $(LIB)/
 	install -m 400 ./lib/wpm-copy.sh $(LIB)/
 	install -m 400 ./lib/wpm-delete.sh $(LIB)/
@@ -40,7 +39,7 @@ install:
 
 uninstall:
 	@echo "Removing wpm"
-	rm -rf $(BIN)/{wpm,wpm.sh} $(ETC) ${LIB}/{fixserial.sh,updater.pl,wpm*.inc,wpm*.sh}
+	rm -rf $(BIN)/{wpm,wpm.sh} $(ETC) ${LIB}/{fixserial.sh,wpm*.inc,wpm*.sh}
 
 reinstall:
 	@echo "Running reinstall"
