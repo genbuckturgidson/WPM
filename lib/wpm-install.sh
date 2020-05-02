@@ -7,8 +7,9 @@ function install() {
   while [[ $# -gt 0 ]]; do
     KEY="$1"
     case $KEY in
-      -d|--domain) DOMAIN="$2"; shift;;
-      -p|--path) DESTDIR="$2"; shift;;
+      -d|--domain) DOMAIN="$2"; shift ;;
+      -p|--path) DESTDIR="$2"; shift ;;
+      -s|--skip-ftp) SKIPFTP="yes" ;;
       *) echo "$1 not implemented" ; POSIT+=("$1") ;;
     esac
     shift
@@ -16,6 +17,7 @@ function install() {
   set -- "${POSIT[@]}"
 
   DESTDIR="${DESTDIR:-`pwd`}"
+  SKIPFTP="${SKIPFTP:-no}"
   local DATETIME=`date +%Y%m%d.%H%M`
 
   [ -z $DOMAIN ] && echo "you must provide a domain name"
@@ -83,29 +85,27 @@ function install() {
   echo -e "<?php\ndefine('DB_NAME', 'database_name_here');\ndefine('DB_USER', 'username_here');\ndefine('DB_PASSWORD', 'password_here');\ndefine('DB_HOST', 'localhost');\ndefine('DB_CHARSET', 'utf8');\ndefine('DB_COLLATE', '');\n"| sed -e "s/database_name_here/""$TRIMMEDDOMAIN""/g" | sed -e "s/username_here/""$TRIMMEDDOMAIN""/g" | sed -e "s/password_here/""$PASSWORD""/g" > wp-config.php
 
   try wget -O - -q https://api.wordpress.org/secret-key/1.1/salt/ >> wp-config.php
-
-  echo "==$INSTANCEID==Adding ftp user $TRIMMEDDOMAIN==" | tee -a $LOGFILE
-
-  [ -z $SELECTED_USER ] && UID="9001" || UID=`id -n $SELECTED_USER`
-
-  # THE UIDS WE KNOW WE SHOULDNT BE USING
-  local BADNESS=("0" "2" "3" "4" "5" "6" "7" "8" "9" "10" "13" "34" "38" "39" "41" "65534" "100")
-  for BADDY in ${BADNESS[*]}
-  do
-    if [ $UID -eq $BADDY ]; then
-      echo "UID of $BADDY is not allowed setting to over nine thousand"
-      uid="9001"
-    fi
-  done # END BADNESS CHECK
-
-  try useradd $TRIMMEDDOMAIN -u $UID -g $SELECTED_GROUP -d $DESTDIR -s /bin/sh -p $(openssl passwd -1 $PASSWORD) -o
-  echo "==$INSTANCEID==FTP user added" | tee -a $LOGFILE
-
-  echo "define('FS_METHOD', 'ftpsockets');" >> wp-config.php
-  echo "define('FTP_USER', '$TRIMMEDDOMAIN');" >> wp-config.php
-  echo "define('FTP_PASS', '$PASSWORD');" >> wp-config.php
-  echo "define('FTP_HOST', '127.0.0.1');" >> wp-config.php
-  echo "==$INSTANCEID==FTP details and FS_METHOD added to config" | tee -a $LOGFILE
+  if [[ "$SKIPFTP" == "no" ]]; then
+    echo "==$INSTANCEID==Adding ftp user $TRIMMEDDOMAIN==" | tee -a $LOGFILE
+    [ -z $SELECTED_USER ] && UID="9001" || UID=`id -n $SELECTED_USER`
+    # THE UIDS WE KNOW WE SHOULDNT BE USING
+    local BADNESS=("0" "2" "3" "4" "5" "6" "7" "8" "9" "10" "13" "34" "38" "39" "41" "65534" "100")
+    for BADDY in ${BADNESS[*]}; do
+      if [ $UID -eq $BADDY ]; then
+        echo "UID of $BADDY is not allowed setting to over nine thousand"
+        uid="9001"
+      fi
+    done # END BADNESS CHECK
+    try useradd $TRIMMEDDOMAIN -u $UID -g $SELECTED_GROUP -d $DESTDIR -s /bin/sh -p $(openssl passwd -1 $PASSWORD) -o
+    echo "==$INSTANCEID==FTP user added" | tee -a $LOGFILE
+    echo "define('FS_METHOD', 'ftpsockets');" >> wp-config.php
+    echo "define('FTP_USER', '$TRIMMEDDOMAIN');" >> wp-config.php
+    echo "define('FTP_PASS', '$PASSWORD');" >> wp-config.php
+    echo "define('FTP_HOST', '127.0.0.1');" >> wp-config.php
+    echo "==$INSTANCEID==FTP details and FS_METHOD added to config" | tee -a $LOGFILE
+  elif [[ "$SKIPFTP" == "yes" ]]; then
+    echo "==$INSTANCEID==Skipping FTP per user request." | tee -a $LOGFILE
+  fi
 
   echo -e "\$table_prefix = 'wp_';\n\ndefine ('WPLANG', '');\ndefine('WP_DEBUG', false);\nif ( ! defined('ABSPATH') )\ndefine('ABSPATH', dirname(__FILE__) . '/');\nrequire_once(ABSPATH . 'wp-settings.php');" >> wp-config.php
 
@@ -113,7 +113,6 @@ function install() {
   if [ "$DATABASES" -lt 1 ]; then
     echo "==$INSTANCEID==Creating database $TRIMMEDDOMAIN" | tee -a $LOGFILE
     echo "create database $TRIMMEDDOMAIN" | mysql
-
     echo "==$INSTANCEID==Granting permissions on $TRIMMEDDOMAIN to $TRIMMEDDOMAIN@localhost" | tee -a $LOGFILE
     echo "grant all on $TRIMMEDDOMAIN.* to '$TRIMMEDDOMAIN'@'localhost' identified by '$PASSWORD'" | mysql
   else
@@ -127,19 +126,21 @@ function install() {
     exit 1
   fi
 
-  echo "==$INSTANCEID==Setting Permissions on $DESTDIR" | tee -a $LOGFILE
-  try mkdir $DESTDIR/wp-content/uploads
-  GROUP="`getent group $SELECTED_GROUP | cut -d ':' -f 1`"
-  echo "==$INSTANCEID==User: $TRIMMEDDOMAIN, group: $GROUP" | tee -a $LOGFILE
-  try chown -R $TRIMMEDDOMAIN:$GROUP $DESTDIR
-  try find $DESTDIR -type d -exec chmod 750 '{}' \;
-  try find $DESTDIR -type f -exec chmod 640 '{}' \;
-
-  [ -d $DESTDIR/wp-content/uploads ] && try chmod 770 $DESTDIR/wp-content/uploads || try install -d -m 0770 $DESTDIR/wp-content/uploads
+  if [[ "$SKIPFTP" == "no" ]]; then
+    echo "==$INSTANCEID==Setting Permissions on $DESTDIR" | tee -a $LOGFILE
+    try mkdir $DESTDIR/wp-content/uploads
+    GROUP="`getent group $SELECTED_GROUP | cut -d ':' -f 1`"
+    echo "==$INSTANCEID==User: $TRIMMEDDOMAIN, group: $GROUP" | tee -a $LOGFILE
+    try chown -R $TRIMMEDDOMAIN:$GROUP $DESTDIR
+    try find $DESTDIR -type d -exec chmod 750 '{}' \;
+    try find $DESTDIR -type f -exec chmod 640 '{}' \;
+    [ -d $DESTDIR/wp-content/uploads ] && try chmod 770 $DESTDIR/wp-content/uploads || try install -d -m 0770 $DESTDIR/wp-content/uploads
+  elif [[ "$SKIPFTP" == "yes" ]]; then
+    echo "==$INSTANCEID==Permissions were skipped. Potentially very unsafe." | tee -a $LOGFILE
+  fi
 
   local FPMCHECK=`ps -ef | grep fpm | grep -v grep`
   local APACHECHECK=`ps -ef | egrep 'apache|httpd|apache2' | grep -v egrep | grep -v grep`
-
   if [ ${#FPMCHECK} -eq 0 ]; then
     if [ ${#APACHECHECK} -gt 0 ]; then
       echo "php_flag engine off" > $DESTDIR/wp-content/uploads/.htaccess
@@ -157,7 +158,7 @@ function install() {
   else
     echo "==$INSTANCEID==Apache not detected, skipping htaccess" | tee -a $LOGFILE
   fi
-  
+
   echo "==$INSTANCEID==Install Complete." | tee -a $LOGFILE
 
 } # END INSTALL

@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="b3e5a3c6-5a4b-4197-979d-23dbf0755274" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/wpm.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bin/wpm.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/etc/wpm/changelog.txt" beforeDir="false" afterPath="$PROJECT_DIR$/etc/wpm/changelog.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/updater.pl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/updater.pl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/wpm-verify.sh" beforeDir="false" afterPath="$PROJECT_DIR$/lib/wpm-verify.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/wpm-install.sh" beforeDir="false" afterPath="$PROJECT_DIR$/lib/wpm-install.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/wpm-update.sh" beforeDir="false" afterPath="$PROJECT_DIR$/lib/wpm-update.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,8 +93,27 @@
       <option name="project" value="LOCAL" />
       <updated>1587752347786</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="inc files renamed to sh files&#10;make uninstall now uses wildcard globbing in $(LIB)">
+      <created>1588370032444</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1588370032444</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="attempt to fix bug with backup -s" />
@@ -91,21 +127,23 @@
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
     <state x="1139" y="486" key="#com.intellij.fileTypes.FileTypeChooser/0.23.2560.1337@0.23.2560.1337" timestamp="1587045550449" />
-    <state x="1040" y="277" key="CommitChangelistDialog2" timestamp="1587752347612">
-      <screen x="0" y="23" width="2560" height="1337" />
-    </state>
-    <state x="1040" y="277" key="CommitChangelistDialog2/0.23.2560.1337@0.23.2560.1337" timestamp="1587752347612" />
-    <state x="844" y="315" width="424" height="490" key="FileChooserDialogImpl" timestamp="1588354548888">
+    <state x="1040" y="267" width="925" height="1001" key="CommitChangelistDialog2" timestamp="1588370032331">
       <screen x="0" y="0" width="2560" height="1406" />
     </state>
-    <state x="844" y="315" width="424" height="490" key="FileChooserDialogImpl/0.0.2560.1406@0.0.2560.1406" timestamp="1588354548888" />
+    <state x="1040" y="267" width="925" height="1001" key="CommitChangelistDialog2/0.0.2560.1406@0.0.2560.1406" timestamp="1588370032331" />
+    <state x="1040" y="277" key="CommitChangelistDialog2/0.23.2560.1337@0.23.2560.1337" timestamp="1587752347612" />
+    <state x="452" y="359" width="424" height="490" key="FileChooserDialogImpl" timestamp="1588428225533">
+      <screen x="0" y="0" width="2560" height="1406" />
+    </state>
+    <state x="452" y="359" width="424" height="490" key="FileChooserDialogImpl/0.0.2560.1406@0.0.2560.1406" timestamp="1588428225533" />
     <state x="764" y="350" key="SettingsEditor" timestamp="1587751929578">
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
     <state x="764" y="350" key="SettingsEditor/0.23.2560.1337@0.23.2560.1337" timestamp="1587751929578" />
-    <state x="995" y="415" key="Vcs.Push.Dialog.v2" timestamp="1587752356141">
-      <screen x="0" y="23" width="2560" height="1337" />
+    <state x="995" y="412" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1588370041961">
+      <screen x="0" y="0" width="2560" height="1406" />
     </state>
+    <state x="995" y="412" width="800" height="535" key="Vcs.Push.Dialog.v2/0.0.2560.1406@0.0.2560.1406" timestamp="1588370041961" />
     <state x="995" y="415" key="Vcs.Push.Dialog.v2/0.23.2560.1337@0.23.2560.1337" timestamp="1587752356141" />
     <state x="1058" y="640" width="453" height="182" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1588354779012">
       <screen x="0" y="0" width="2560" height="1406" />

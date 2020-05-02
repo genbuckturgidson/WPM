@@ -9,6 +9,7 @@ function update() {
     case $KEY in
       -b|--backup) BACKUP="yes" ;;
       -g|--plugins) PLUGINS="yes" ;;
+      -s|--skip-ftp) SKIPFTP="yes" ;;
       -p|--path) DESTDIR=$2 ; shift ;;
       *) echo "$1 not implemented" ; POSIT+=("$1") ;;
 	esac
@@ -19,6 +20,7 @@ function update() {
   BACKUP="${BACKUP:-no}"
   PLUGINS="${PLUGINS:-no}"
   DESTDIR="${DESTDIR:-`pwd`}"
+  SKIPFTP="${SKIPFTP:-no}"
   
   [ -d $DESTDIR ] || exit 1
   cd $DESTDIR
@@ -72,8 +74,12 @@ function update() {
     6b4178521b3f/lib/updater.pl --wp-path=$DESTDIR
   fi
 
-  echo "==$INSTANCEID==Running permissions" | tee -a $LOGFILE
-  permissions $DESTDIR
+  if [[ "$SKIPFTP" == "no" ]]; then
+    echo "==$INSTANCEID==Running permissions" | tee -a $LOGFILE
+    permissions $DESTDIR
+  elif
+    echo "==$INSTANCEID==Permission setting skipped." | tee -a $LOGFILE
+  fi
 
   echo "==$INSTANCEID==Update complete" | tee -a $LOGFILE
 

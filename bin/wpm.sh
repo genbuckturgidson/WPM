@@ -32,7 +32,7 @@ try() { "$@" || die "cannot $*"; }
 # MAKE SURE THAT TEMPDIR EXISTS #
 #################################
 
-[ -d $TEMPDIR ] || try mkdir -m 770 -p $TEMPDIR
+[ -d $TEMPDIR ] || try mkdir -m 770 -p $TEMPDIR;
 [ -d $TEMPDIR ] || echo "$TEMPDIR does not exist"
 [ -d $TEMPDIR ] || exit 1
 
@@ -100,6 +100,7 @@ function usage() {
     -i|--install)
     	printf "  -i | --install \n"
 	    printf "\t %-21s \t %s \n" "-d | --domain" "domain name to be used"
+	    printf "\t %-21s \t %s \n" "-s | --skip-ftp" "skip ftpsockets config and permissions"
 	    printf "\t %-21s \t %s \n\n" "-p | --path" "location for installation"
 
 	    echo "This will install WordPress at the desired location."
@@ -112,6 +113,7 @@ function usage() {
     	printf "  -u | --update \n"
 	    printf "\t %-21s \t %s \n" "-b | --backup" "do a backup first"
 	    printf "\t %-21s \t %s \n" "-g | --plugins" "update plugins too"
+	    printf "\t %-21s \t %s \n" "-s | --skip-ftp" "skip ftpsockets permissions"
 	    printf "\t %-21s \t %s \n\n" "-p | --path" "location of the WP install"
 
       echo "This just runs an update to current on WordPress."
