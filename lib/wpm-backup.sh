@@ -99,7 +99,7 @@ function backup() {
   fi
   
   if [ "$SKIPUPLOADS" == "yes" ]; then
-  	EXCLUDES='--exclude=./wp-content/uploads'
+  	EXCLUDES="--exclude=\"${DESTDIR}/wp-content/uploads\""
   else
   	EXCLUDES=""
   fi
