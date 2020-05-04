@@ -99,7 +99,7 @@ function backup() {
   fi
   
   if [ "$SKIPUPLOADS" == "yes" ]; then
-  	EXCLUDES="--exclude *uploads*"
+  	EXCLUDES="--exclude *uploads/*"
   else
   	EXCLUDES=""
   fi
