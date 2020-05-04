@@ -100,7 +100,7 @@ function update() {
   if [[ "$SKIPFTP" == "no" ]]; then
     echo "==$INSTANCEID==Running permissions" | tee -a $LOGFILE
     permissions $DESTDIR
-  elif
+  elif [[ "$SKIPFTP" == "yes" ]]; then
     echo "==$INSTANCEID==Permission setting skipped." | tee -a $LOGFILE
   fi
 
