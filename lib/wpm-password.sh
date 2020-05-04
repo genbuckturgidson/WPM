@@ -63,7 +63,7 @@ function password() {
   echo "==$INSTANCEID==Encrypted previous password $PREVIOUSPASSWORDHASH" | tee -a $LOGFILE
 
   local PASSWORD=`openssl rand -hex 10`
-  printf "${RED} NOT LOGGED: ${DEFAULT} Temporary password will be ${CIAN} $PASSWORD ${DEFAULT}\n"
+  printf "%b%s%b%s%b%s%b" "${RED}" "NOT LOGGED:" "${DEFAULT}" "Temporary password will be" "${CIAN}" "$PASSWORD\n" "${DEFAULT}"
 
   try mysql -e "use $DATABASENAME; update wp_users set user_pass = MD5('$PASSWORD') where user_login='$USERNAME';"
 
