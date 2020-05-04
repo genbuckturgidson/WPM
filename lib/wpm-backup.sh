@@ -91,10 +91,10 @@ function backup() {
   [ `which pv` ] && PROGRESS="pv"
   
   if [ "$PROGRESS" == "pv" ]; then
-  	TAROPTIONS="cf"
+  	TAROPTIONS="-cf"
   	INTERPRED="pv -per -s${SB} |"
   else
-  	TAROPTIONS="cfv"
+  	TAROPTIONS="-cfv"
   	INTERPRED=""
   fi
   
