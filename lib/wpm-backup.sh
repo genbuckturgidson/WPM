@@ -131,7 +131,10 @@ function backup() {
   eval $CMD
 
   rm -f $TEMPDIR/$DBNAME.$DATETIME.sql
-  rm -f $DESTDIR/wp-content/uploads/tagfile
+
+  if [ -f $DESTDIR/wp-content/uploads/tagfile ]
+    rm -f $DESTDIR/wp-content/uploads/tagfile
+  fi
 
   echo "==$INSTANCEID==The archive is available at $BACKUPPATH/$NAME.$DATETIME.tar.xz"
 
