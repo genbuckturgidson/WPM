@@ -204,7 +204,7 @@ function usage() {
       echo "This will attempt to detect and optionally remove malware, and/or replace files that are corrupt."
       echo "If no path is given it will attempt to use the current directory."
       echo "If you do not choose md5 or scan, it does nothing."
-      echo "Example: wpm -v -m -s -b -r /var/www/foo"
+      echo "Example: wpm -v -m -s -b -r -p /var/www/foo"
     ;;
 
     -h|--help)
