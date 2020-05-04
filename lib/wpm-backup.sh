@@ -72,16 +72,17 @@ function backup() {
     echo "==$INSTANCEID==removed old backups" | tee -a $LOGFILE;
   fi
 
-  local SF=`echo $(($(stat -f --format="%a*%S" .)))`;
-  local SN=`du -sb .|awk '{print $1}'`;
-  local SB=${SN}
-  local SN=`echo $(($SN + $SN))`;
-
-  if [ $SF -gt $SN ]; then
-    echo "==$INSTANCEID==Adequate free space detected" | tee -a $LOGFILE
-  else
-    echo "==$INSTANCEID==Insufficient space available. Terminating" | tee -a $LOGFILE
-    exit 1
+  if [[ "${SKIPUPLOADS}" == "no" ]]; then
+    local SF=`echo $(($(stat -f --format="%a*%S" .)))`;
+    local SN=`du -sb .|awk '{print $1}'`;
+    local SB=${SN}
+    local SN=`echo $(($SN + $SN))`;
+    if [ $SF -gt $SN ]; then
+      echo "==$INSTANCEID==Adequate free space detected" | tee -a $LOGFILE
+    else
+      echo "==$INSTANCEID==Insufficient space available. Terminating" | tee -a $LOGFILE
+      exit 1
+    fi
   fi
 
   echo "==$INSTANCEID==Starting archive creation" | tee -a $LOGFILE
