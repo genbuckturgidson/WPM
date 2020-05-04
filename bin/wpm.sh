@@ -213,18 +213,18 @@ function usage() {
   esac
 
   if [ -z $1 ]; then
-    printf "%b%s \t %s%s%s\n" "$RED" "-r" "$CIAN" "rename a wordpress installation" "$DEFAULT"
-    printf "%b%s \t %s%s%s\n" "$RED" "-c" "$CIAN" "copy a wordpress installation" "$DEFAULT"
-    printf "%b%s \t %s%s%s\n" "$RED" "-i" "$CIAN" "install wordpress" "$DEFAULT"
-    printf "%b%s \t %s%s%s\n" "$RED" "-u" "$CIAN" "update a wordpress installation" "$DEFAULT"
-    printf "%b%s \t %s%s%s\n" "$RED" "-p" "$CIAN" "attempt to set sane permissions on a WP installation" "$DEFAULT"
-    printf "%b%s \t %s%s%s\n" "$RED" "-d" "$CIAN" "delete a wordpress installation" "$DEFAULT"
-    printf "%b%s \t %s%s%s\n" "$RED" "-b" "$CIAN" "backup a wordpress installation" "$DEFAULT"
-    printf "%b%s \t %s%s%s\n" "$RED" "-w" "$CIAN" "change a wordpress user's password" "$DEFAULT"
-    printf "%b%s \t %s%s%s\n" "$RED" "-e" "$CIAN" "change wpm settings" "$DEFAULT"
-    printf "%b%s \t %s%s%s\n" "$RED" "-s" "$CIAN" "search for wordpress installations" "$DEFAULT"
-    printf "%b%s \t %s%s%s\n" "$RED" "-m" "$CIAN" "find and update wordpress installations" "$DEFAULT"
-    printf "%b%s \t %s%s%s\n\n" "$RED" "-v" "$CIAN" "verify a wordpress installation" "$DEFAULT"
+    printf "%b%s \t %b%s%b\n" "$RED" "-r" "$CIAN" "rename a wordpress installation" "$DEFAULT"
+    printf "%b%s \t %b%s%b\n" "$RED" "-c" "$CIAN" "copy a wordpress installation" "$DEFAULT"
+    printf "%b%s \t %b%s%b\n" "$RED" "-i" "$CIAN" "install wordpress" "$DEFAULT"
+    printf "%b%s \t %b%s%b\n" "$RED" "-u" "$CIAN" "update a wordpress installation" "$DEFAULT"
+    printf "%b%s \t %b%s%b\n" "$RED" "-p" "$CIAN" "attempt to set sane permissions on a WP installation" "$DEFAULT"
+    printf "%b%s \t %b%s%b\n" "$RED" "-d" "$CIAN" "delete a wordpress installation" "$DEFAULT"
+    printf "%b%s \t %b%s%b\n" "$RED" "-b" "$CIAN" "backup a wordpress installation" "$DEFAULT"
+    printf "%b%s \t %b%s%b\n" "$RED" "-w" "$CIAN" "change a wordpress user's password" "$DEFAULT"
+    printf "%b%s \t %b%s%b\n" "$RED" "-e" "$CIAN" "change wpm settings" "$DEFAULT"
+    printf "%b%s \t %b%s%b\n" "$RED" "-s" "$CIAN" "search for wordpress installations" "$DEFAULT"
+    printf "%b%s \t %b%s%b\n" "$RED" "-m" "$CIAN" "find and update wordpress installations" "$DEFAULT"
+    printf "%b%s \t %b%s%b\n\n" "$RED" "-v" "$CIAN" "verify a wordpress installation" "$DEFAULT"
   fi
 
 } # END USAGE

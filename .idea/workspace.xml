@@ -20,7 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b3e5a3c6-5a4b-4197-979d-23dbf0755274" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/lib/wpm-password.sh" beforeDir="false" afterPath="$PROJECT_DIR$/lib/wpm-password.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/wpm.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bin/wpm.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +131,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588616348024</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="fixed color output">
+      <created>1588616757892</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1588616757892</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -155,17 +162,18 @@
     <MESSAGE value="date modified, license version" />
     <MESSAGE value="removed dependence on perl updater.pl for plugins/themes" />
     <MESSAGE value="skipftp elif needed condition" />
-    <option name="LAST_COMMIT_MESSAGE" value="skipftp elif needed condition" />
+    <MESSAGE value="fixed color output" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed color output" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1139" y="486" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1587045550449">
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
     <state x="1139" y="486" key="#com.intellij.fileTypes.FileTypeChooser/0.23.2560.1337@0.23.2560.1337" timestamp="1587045550449" />
-    <state x="1034" y="181" width="925" height="1001" key="CommitChangelistDialog2" timestamp="1588616347938">
+    <state x="1034" y="181" width="925" height="1001" key="CommitChangelistDialog2" timestamp="1588616757814">
       <screen x="0" y="0" width="2560" height="1406" />
     </state>
-    <state x="1034" y="181" width="925" height="1001" key="CommitChangelistDialog2/0.0.2560.1406@0.0.2560.1406" timestamp="1588616347938" />
+    <state x="1034" y="181" width="925" height="1001" key="CommitChangelistDialog2/0.0.2560.1406@0.0.2560.1406" timestamp="1588616757814" />
     <state x="1040" y="277" key="CommitChangelistDialog2/0.23.2560.1337@0.23.2560.1337" timestamp="1587752347612" />
     <state x="452" y="359" width="424" height="490" key="FileChooserDialogImpl" timestamp="1588428225533">
       <screen x="0" y="0" width="2560" height="1406" />
@@ -175,10 +183,10 @@
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
     <state x="764" y="350" key="SettingsEditor/0.23.2560.1337@0.23.2560.1337" timestamp="1587751929578" />
-    <state x="995" y="412" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1588616352699">
+    <state x="995" y="412" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1588616763988">
       <screen x="0" y="0" width="2560" height="1406" />
     </state>
-    <state x="995" y="412" width="800" height="535" key="Vcs.Push.Dialog.v2/0.0.2560.1406@0.0.2560.1406" timestamp="1588616352699" />
+    <state x="995" y="412" width="800" height="535" key="Vcs.Push.Dialog.v2/0.0.2560.1406@0.0.2560.1406" timestamp="1588616763988" />
     <state x="995" y="415" key="Vcs.Push.Dialog.v2/0.23.2560.1337@0.23.2560.1337" timestamp="1587752356141" />
     <state x="1058" y="640" width="453" height="182" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1588354779012">
       <screen x="0" y="0" width="2560" height="1406" />
