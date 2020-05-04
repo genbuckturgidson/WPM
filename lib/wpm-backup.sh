@@ -132,7 +132,7 @@ function backup() {
 
   rm -f $TEMPDIR/$DBNAME.$DATETIME.sql
 
-  if [ -f $DESTDIR/wp-content/uploads/tagfile ]
+  if [ -f $DESTDIR/wp-content/uploads/tagfile ]; then
     rm -f $DESTDIR/wp-content/uploads/tagfile
   fi
 
