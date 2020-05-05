@@ -248,7 +248,14 @@ case "$1" in
   -m|--mangle) mangle "${@:2}" ;;
   -v|--verify) verify "${@:2}" ;;
   -h|--help) usage "${@:2}" ;;
-  *) echo "$1 not implemented" ; exit 1 ;;
+  *)
+    if [ "$1" == "" ]; then
+      usage
+    else
+      echo "$1 not implemented"
+      exit 1
+    fi
+  ;;
 esac
 
 # EOF
