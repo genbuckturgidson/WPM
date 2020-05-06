@@ -6,7 +6,7 @@
 
 **Project Started**: 20131222
 
-**Project Updated**: 20200504
+**Project Updated**: 20200506
 
 **Project Name**: WordPress Mangler
 
