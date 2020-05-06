@@ -272,7 +272,21 @@
       <option name="project" value="LOCAL" />
       <updated>1588685717545</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="rename no longer searches every file. it will attempt an insert in wp-config, and in wp-content/themes/$THEME/functions.php">
+      <created>1588786681022</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1588786681022</updated>
+    </task>
+    <task id="LOCAL-00032" summary="updated changelog">
+      <created>1588786853319</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1588786853319</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -304,17 +318,19 @@
     <MESSAGE value="syntax error" />
     <MESSAGE value="syntax error in the help text XD" />
     <MESSAGE value="if no argument is given, show usage" />
-    <option name="LAST_COMMIT_MESSAGE" value="if no argument is given, show usage" />
+    <MESSAGE value="rename no longer searches every file. it will attempt an insert in wp-config, and in wp-content/themes/$THEME/functions.php" />
+    <MESSAGE value="updated changelog" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated changelog" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1139" y="486" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1587045550449">
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
     <state x="1139" y="486" key="#com.intellij.fileTypes.FileTypeChooser/0.23.2560.1337@0.23.2560.1337" timestamp="1587045550449" />
-    <state x="645" y="230" width="925" height="1001" key="CommitChangelistDialog2" timestamp="1588685717381">
+    <state x="645" y="230" width="925" height="1001" key="CommitChangelistDialog2" timestamp="1588786853236">
       <screen x="0" y="0" width="2560" height="1406" />
     </state>
-    <state x="645" y="230" width="925" height="1001" key="CommitChangelistDialog2/0.0.2560.1406@0.0.2560.1406" timestamp="1588685717381" />
+    <state x="645" y="230" width="925" height="1001" key="CommitChangelistDialog2/0.0.2560.1406@0.0.2560.1406" timestamp="1588786853236" />
     <state x="1040" y="277" key="CommitChangelistDialog2/0.23.2560.1337@0.23.2560.1337" timestamp="1587752347612" />
     <state x="452" y="359" width="424" height="490" key="FileChooserDialogImpl" timestamp="1588694847722">
       <screen x="0" y="0" width="2560" height="1406" />
@@ -328,10 +344,10 @@
       <screen x="0" y="0" width="2560" height="1406" />
     </state>
     <state width="498" height="454" key="SwitcherDM/0.0.2560.1406@0.0.2560.1406" timestamp="1588624620853" />
-    <state x="995" y="412" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1588685724811">
+    <state x="995" y="412" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1588786854989">
       <screen x="0" y="0" width="2560" height="1406" />
     </state>
-    <state x="995" y="412" width="800" height="535" key="Vcs.Push.Dialog.v2/0.0.2560.1406@0.0.2560.1406" timestamp="1588685724811" />
+    <state x="995" y="412" width="800" height="535" key="Vcs.Push.Dialog.v2/0.0.2560.1406@0.0.2560.1406" timestamp="1588786854989" />
     <state x="995" y="415" key="Vcs.Push.Dialog.v2/0.23.2560.1337@0.23.2560.1337" timestamp="1587752356141" />
     <state x="1058" y="640" width="453" height="182" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1588354779012">
       <screen x="0" y="0" width="2560" height="1406" />

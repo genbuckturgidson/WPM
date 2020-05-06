@@ -75,7 +75,11 @@ function rename() {
     REMOVE_LINES="yes"
   else
     printf "%s\n%s\n%s\n%s" '<?php' "update_option( 'siteurl', 'https://$NEWNAME' );" "update_option( 'home', 'https://$NEWNAME' );" '?>' > $DESTDIR/wp-content/themes/$WPTHEME/functions.php
-    REMOVE_FILE="yes"
+    if [ -f $DESTDIR/wp-content/themes/$WPTHEME/functions.php ]; then
+      REMOVE_FILE="yes"
+    else
+      echo "==$INSTANCEID==Could not create functions.php in $DESTDIR/wp-content/themes/$WPTHEME/" | tee -a $LOGFILE
+    fi
   fi
 
   wget -O/dev/null -q --no-check-certificate https://$NEWNAME;
@@ -83,11 +87,12 @@ function rename() {
   if [[ "$REMOVE_LINES" == "yes" ]]; then
     sed -i 's/^update_option.*$//' $DESTDIR/wp-content/themes/$WPTHEME/functions.php
   elif [[ "$REMOVE_FILE" == "yes" ]]; then
-    rm -f $DESTDIR/wp-content/themes/$WPTHEME/functions.php
+    if [ -f $DESTDIR/wp-content/themes/$WPTHEME/functions.php ]; then
+      rm -f $DESTDIR/wp-content/themes/$WPTHEME/functions.php
+    fi
   fi
 
   echo "==$INSTANCEID==File operations complete." | tee -a $LOGFILE
-
   echo "==$INSTANCEID==Rename of $OLDNAME to $NEWNAME complete" | tee -a $LOGFILE
 
 } # END RENAME
