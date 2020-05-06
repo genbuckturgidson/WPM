@@ -47,12 +47,46 @@ function rename() {
   sed -i "s/${OLDNAME}/${NEWNAME}/g" ${TEMPDIR}/${DBNAME}.${DATETIME}.sql
   try 6b4178521b3f/lib/fixserial.sh -o $OLDNAME -n $NEWNAME -f ${TEMPDIR}/${DBNAME}.${DATETIME}.sql
   try mysql "$DBNAME" < $TEMPDIR/${DBNAME}.${DATETIME}.sql
+  try rm -fv ${TEMPDIR}/${DBNAME}.${DATETIME}.sql
   echo "==$INSTANCEID==DB transform complete" | tee -a $LOGFILE
 
-  echo "==$INSTANCEID==Changing $OLDNAME to $NEWNAME" | tee -a $LOGFILE
-  try find . -type f -exec sed -i "s/$OLDNAME/$NEWNAME/g" {} +
+  echo "==$INSTANCEID==Commencing file operations." | tee -a $LOGFILE
 
-  try rm -fv ${TEMPDIR}/${DBNAME}.${DATETIME}.sql
+  try cp -v $DESTDIR/wp-config.php $DESTDIR/.wp-config.php.$DATETIME.bak
+
+  if ! grep -q 'WP_HOME' $DESTDIR/wp-config.php; then
+    sed -i "s|\$table_prefix.*$|&\n define( 'WP_HOME', 'https://$NEWNAME' );|" $DESTDIR/wp-config.php
+  else
+    sed -i "s|^.*WP_HOME.*$|define( 'WP_HOME', 'https://$NEWNAME' );|" $DESTDIR/wp-config.php
+  fi
+
+  if ! grep -q 'WP_SITEURL' $DESTDIR/wp-config.php; then
+    sed -i "s|\$table_prefix.*$|&\n define( 'WP_SITEURL', 'https://$NEWNAME' );|" $DESTDIR/wp-config.php
+  else
+    sed -i "s|^.*WP_SITEURL.*$|define( 'WP_HOME', 'https://$NEWNAME' );|" $DESTDIR/wp-config.php
+  fi
+
+  WPTHEME=$(mysql -sN -e "select \`option_value\` from $DNNAME.\`wp_options\` where \`option_name\`='template';");
+
+  if [ -f $DESTDIR/wp-content/themes/$WPTHEME/functions.php ]; then
+    try cp -v $DESTDIR/wp-content/themes/$WPTHEME/functions.php $DESTDIR/wp-content/themes/$WPTHEME/.functions.php.$DATETIME.bak
+    sed -i "s|\<\?php$|&\n update_option( 'siteurl', 'https://$NEWNAME' );|" $DESTDIR/wp-content/themes/$WPTHEME/functions.php
+    sed -i "s|\<\?php$|&\n update_option( 'home', 'https://$NEWNAME' );|" $DESTDIR/wp-content/themes/$WPTHEME/functions.php
+    REMOVE_LINES="yes"
+  else
+    printf "%s\n%s\n%s\n%s" '<?php' "update_option( 'siteurl', 'https://$NEWNAME' );" "update_option( 'home', 'https://$NEWNAME' );" '?>' > $DESTDIR/wp-content/themes/$WPTHEME/functions.php
+    REMOVE_FILE="yes"
+  fi
+
+  wget -O/dev/null -q --no-check-certificate https://$NEWNAME;
+
+  if [[ "$REMOVE_LINES" == "yes" ]]; then
+    sed -i 's/^update_option.*$//' $DESTDIR/wp-content/themes/$WPTHEME/functions.php
+  elif [[ "$REMOVE_FILE" == "yes" ]]; then
+    rm -f $DESTDIR/wp-content/themes/$WPTHEME/functions.php
+  fi
+
+  echo "==$INSTANCEID==File operations complete." | tee -a $LOGFILE
 
   echo "==$INSTANCEID==Rename of $OLDNAME to $NEWNAME complete" | tee -a $LOGFILE
 
