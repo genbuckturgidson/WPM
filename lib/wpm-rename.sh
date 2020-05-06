@@ -66,7 +66,7 @@ function rename() {
     sed -i "s|^.*WP_SITEURL.*$|define( 'WP_HOME', 'https://$NEWNAME' );|" $DESTDIR/wp-config.php
   fi
 
-  WPTHEME=$(mysql -sN -e "select \`option_value\` from $DNNAME.\`wp_options\` where \`option_name\`='template';");
+  WPTHEME=$(mysql -sN -e "select \`option_value\` from $DBNAME.\`wp_options\` where \`option_name\`='template';");
 
   if [ -f $DESTDIR/wp-content/themes/$WPTHEME/functions.php ]; then
     try cp -v $DESTDIR/wp-content/themes/$WPTHEME/functions.php $DESTDIR/wp-content/themes/$WPTHEME/.functions.php.$DATETIME.bak
