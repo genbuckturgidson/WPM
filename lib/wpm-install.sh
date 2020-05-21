@@ -87,16 +87,16 @@ function install() {
   try wget -O - -q https://api.wordpress.org/secret-key/1.1/salt/ >> wp-config.php
   if [[ "$SKIPFTP" == "no" ]]; then
     echo "==$INSTANCEID==Adding ftp user $TRIMMEDDOMAIN==" | tee -a $LOGFILE
-    [ -z $SELECTED_USER ] && UID="9001" || UID=`id -n $SELECTED_USER`
+    [ -z $SELECTED_USER ] && USERID="9001" || USERID=`id -n $SELECTED_USER`
     # THE UIDS WE KNOW WE SHOULDNT BE USING
     local BADNESS=("0" "2" "3" "4" "5" "6" "7" "8" "9" "10" "13" "34" "38" "39" "41" "65534" "100")
     for BADDY in ${BADNESS[*]}; do
-      if [ $UID -eq $BADDY ]; then
+      if [ $USERID -eq $BADDY ]; then
         echo "UID of $BADDY is not allowed setting to over nine thousand"
-        uid="9001"
+        USERID="9001"
       fi
     done # END BADNESS CHECK
-    try useradd $TRIMMEDDOMAIN -u $UID -g $SELECTED_GROUP -d $DESTDIR -s /bin/sh -p $(openssl passwd -1 $PASSWORD) -o
+    try useradd $TRIMMEDDOMAIN -u $USERID -g $SELECTED_GROUP -d $DESTDIR -s /bin/sh -p $(openssl passwd -1 $PASSWORD) -o
     echo "==$INSTANCEID==FTP user added" | tee -a $LOGFILE
     echo "define('FS_METHOD', 'ftpsockets');" >> wp-config.php
     echo "define('FTP_USER', '$TRIMMEDDOMAIN');" >> wp-config.php
