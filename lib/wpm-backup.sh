@@ -22,13 +22,6 @@ function backup() {
   SKIPUPLOADS="${SKIPUPLOADS:-no}"
   DESTDIR="${DESTDIR:-`pwd`}"
 
-  MEMORY=$( echo $((`cat /proc/meminfo | grep MemTotal | awk '{print $2}'`/1024)) )
-  if [[ $MEMORY -lt 675 ]]; then
-    NOCOMPRESS="yes"
-  else
-    NOCOMPRESS="${NOCOMPRESS:-no}"
-  fi
-
   [ -f ${DESTDIR}/wp-config.php ] || echo "this isn't a wordpress installation"
   [ -f ${DESTDIR}/wp-config.php ] || exit 1
 
@@ -106,6 +99,13 @@ function backup() {
 
   if [ -d $DESTDIR/wp-content/uploads ]; then
     touch $DESTDIR/wp-content/uploads/tagfile
+  fi
+
+  MEMORY=$( echo $((`cat /proc/meminfo | grep MemTotal | awk '{print $2}'`/1024)) )
+  if [[ $MEMORY -lt 1152 ]]; then
+    NOCOMPRESS="yes"
+  else
+    NOCOMPRESS="${NOCOMPRESS:-no}"
   fi
   
   if [ "$NOCOMPRESS" == "yes" ]; then
