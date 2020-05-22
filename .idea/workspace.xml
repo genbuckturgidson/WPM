@@ -19,9 +19,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b3e5a3c6-5a4b-4197-979d-23dbf0755274" name="Default Changelist" comment="bug fix">
+    <list default="true" id="b3e5a3c6-5a4b-4197-979d-23dbf0755274" name="Default Changelist" comment="moved the memory check and changed the value to be checked against">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/wpm-backup.sh" beforeDir="false" afterPath="$PROJECT_DIR$/lib/wpm-backup.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -310,7 +309,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590095829977</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="moved the memory check and changed the value to be checked against">
+      <created>1590158851565</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1590158851566</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -347,7 +353,8 @@
     <MESSAGE value="added file checks to theme update" />
     <MESSAGE value="fixed typo" />
     <MESSAGE value="bug fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="bug fix" />
+    <MESSAGE value="moved the memory check and changed the value to be checked against" />
+    <option name="LAST_COMMIT_MESSAGE" value="moved the memory check and changed the value to be checked against" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1139" y="486" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1587045550449">
@@ -372,12 +379,12 @@
       <screen x="0" y="0" width="2560" height="1406" />
     </state>
     <state width="498" height="454" key="SwitcherDM/0.0.2560.1406@0.0.2560.1406" timestamp="1588624620853" />
-    <state x="1039" y="441" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1590095834582">
+    <state x="1039" y="441" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1590158854539">
       <screen x="72" y="27" width="2488" height="1413" />
     </state>
     <state x="995" y="412" width="800" height="535" key="Vcs.Push.Dialog.v2/0.0.2560.1406@0.0.2560.1406" timestamp="1588789076374" />
     <state x="995" y="415" key="Vcs.Push.Dialog.v2/0.23.2560.1337@0.23.2560.1337" timestamp="1587752356141" />
-    <state x="1039" y="441" key="Vcs.Push.Dialog.v2/72.27.2488.1413@72.27.2488.1413" timestamp="1590095834582" />
+    <state x="1039" y="441" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.2488.1413@72.27.2488.1413" timestamp="1590158854539" />
     <state x="1100" y="670" width="448" height="190" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1589921989716">
       <screen x="72" y="27" width="2488" height="1413" />
     </state>

@@ -17,6 +17,7 @@
          removed perl updater script, now uses bash in wpm-update.sh
          rename no longer tries to modify any file with oldname match
          rename attempts to set HOME and SITEURL
+         colorful output added in some places
 
 4.0.2 -- fixed bugs with duration in password function
          fixed orphaned WP install message
