@@ -196,7 +196,7 @@ function usage() {
     -v|--verify)
     	printf "  -v | --verify \n"
 	    printf "\t %-21s \t %s \n" "-s | --scan" "scan with maldet"
-	    printf "\t %-21s \t %s \n" "-m | --md5" "md5 presnet files against those from wordpress.org"
+	    printf "\t %-21s \t %s \n" "-m | --md5" "md5 present files against those from wordpress.org"
 	    printf "\t %-21s \t %s \n" "-b | --backup" "run a backup first"
 	    printf "\t %-21s \t %s \n" "-r | --replace" "replace modified files (requires --md5)"
 	    printf "\t %-21s \t %s \n\n" "-p | --path" "location of the WP install"
