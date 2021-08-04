@@ -103,7 +103,7 @@ function verify() {
   	  fi # END IF REPLACE
   	  maldet -a $DESTDIR
   	  echo "==$INSTANCEID==Maldet run on $DESTDIR" | tee -a $LOGFILE
-  	elif [ "$(which maldet)" == "" ]; then
+  	else
   	  echo "==$INSTANCEID==Maldet could not run, because not installed" | tee -a $LOGFILE
   	fi # END IF MALDET
   fi # END IF SCAN
