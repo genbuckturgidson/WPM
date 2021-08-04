@@ -91,7 +91,7 @@ function verify() {
   # VIRUS SCANNING #
   ##################
   if [ "$SCAN" == "yes" ]; then
-  	if [ `maldet` ]; then
+  	if maldet 1>/dev/null; then
 	  try maldet -update
 	  echo "==$INSTANCEID==Maldet DB updated" | tee -a $LOGFILE
   	  if [ "$REPLACE" == "yes" ]; then
@@ -103,7 +103,7 @@ function verify() {
   	  fi # END IF REPLACE
   	  maldet -a $DESTDIR
   	  echo "==$INSTANCEID==Maldet run on $DESTDIR" | tee -a $LOGFILE
-  	elif [ ! `maldet` ]; then
+  	elif [ "$(which maldet)" == "" ]; then
   	  echo "==$INSTANCEID==Maldet could not run, because not installed" | tee -a $LOGFILE
   	fi # END IF MALDET
   fi # END IF SCAN
