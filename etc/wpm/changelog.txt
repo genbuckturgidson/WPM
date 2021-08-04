@@ -2,6 +2,8 @@
 # CHANGE LOG #
 ##############
 
+4.1.1 -- fixed a bug in wpm-verify's maldet integration
+
 4.1.0 -- cleaned up code style
          fixed bugs in backup:
            backup does not skip uploads when asked
