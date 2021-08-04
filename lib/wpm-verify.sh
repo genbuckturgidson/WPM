@@ -92,7 +92,7 @@ function verify() {
   ##################
   if [ "$SCAN" == "yes" ]; then
   	if maldet 1>/dev/null; then
-	  try maldet -update
+	  try maldet -u
 	  echo "==$INSTANCEID==Maldet DB updated" | tee -a $LOGFILE
   	  if [ "$REPLACE" == "yes" ]; then
   	    maldet --config-option scan_clamscan=1,quarantine_hits=1
