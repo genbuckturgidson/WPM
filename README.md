@@ -30,6 +30,24 @@ As root, just type `make install` within this archive. There is one configurable
 
 Try using `wpm --help`
 
+```
+sudo wpm -h
+wpm version 4.1.1
+
+-r       rename a wordpress installation
+-c       copy a wordpress installation
+-i       install wordpress
+-u       update a wordpress installation
+-p       attempt to set sane permissions on a WP installation
+-d       delete a wordpress installation
+-b       backup a wordpress installation
+-w       change a wordpress user's password
+-e       change wpm settings
+-s       search for wordpress installations
+-m       find and update wordpress installations
+-v       verify a wordpress installation
+```
+
 ### NOTES
 
 The `--install` function, by default, configures WordPress to use ftpsockets for `FS_METHOD`. This will require that you have an FTP server running even if it's only listening on 127.0.0.1. This same assumption is made by the `--permissions` function. Both `--install` and `--permissions` will set the user and group such that the web process is not the owner of the files, and that the web group will have read access only. This is to attempt to prevent file injection. The `--permissions` function does make permission settings backups if the `getfacl` command is available. FTP sockets configuration can be skipped via the `--skip-ftp` for both `-i` and `-u`.
