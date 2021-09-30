@@ -2,15 +2,9 @@
 
 ### The automagical WordPress Mangler
 
-**Project Author**: Bradford Morgan White
-
 **Project Started**: 20131222
 
 **Project Updated**: 20210930
-
-**Project Name**: WordPress Mangler
-
-**Project Purpose**: WordPress automagically
 
 ---
 
