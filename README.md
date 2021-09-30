@@ -2,10 +2,6 @@
 
 ### The automagical WordPress Mangler
 
-**Project Started**: 20131222
-
-**Project Updated**: 20210930
-
 ---
 
 ### SUMMARY
