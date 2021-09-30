@@ -6,7 +6,7 @@
 
 **Project Started**: 20131222
 
-**Project Updated**: 20210804
+**Project Updated**: 20210930
 
 **Project Name**: WordPress Mangler
 
@@ -44,4 +44,4 @@ The `--delete` function will **NOT** remove the FTP user used for ftpsockets.
 
 ### LICENSE
 
-This software is licensed under terms of the Absurd License 2.0.5. Please see the LICENSE file.
+This software is licensed under terms of the Absurd License 2.0.6. Please see the LICENSE file.
