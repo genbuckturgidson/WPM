@@ -1,0 +1,108 @@
+##############
+# CHANGE LOG #
+##############
+
+4.1.1 -- fixed a bug in wpm-verify's maldet integration
+
+4.1.0 -- cleaned up code style
+         fixed bugs in backup:
+           backup does not skip uploads when asked
+           backup creates tar bomb
+           backup cannot compress if low RAM
+         variable names are more understandable
+         log output and stdout are now the same text
+         output is a bit more verbose
+         the usage function is now per-function help, cuz there's too much output
+         the md5 option of verify will now attempt to NOT override wp-config.php
+         settings function can now be invoked with -e
+         added --skip-ftp option to install & update
+         removed perl updater script, now uses bash in wpm-update.sh
+         rename no longer tries to modify any file with oldname match
+         rename attempts to set HOME and SITEURL
+         colorful output added in some places
+
+4.0.2 -- fixed bugs with duration in password function
+         fixed orphaned WP install message
+         fixed SQL syntax error in -w -v
+         changed to Absurd License 2
+
+4.0.1 -- fixed a bug in backups that was preventing compression despite flag
+         fixed a bug in maldet detection for verify
+         added "PARENTOFGIVEN" as an option for backup location
+
+4.0.0 -- added proper option flags
+         changed behavior of temp password function to add support for permanent
+         added view option to temp password (list users)
+         added parameter order independence
+         configuration options moved to config file
+         made temp directory configurable
+         removed need for rpl
+         added make file for installation
+         added default for current directory on some options
+         makefile for installation
+         SSH option removed due to issues with php's libssh2
+         added the settings function
+         changed default files permissions
+         added the find function
+         added the mangle function
+         update will now optionally update plugins
+         wpm.sh was way too long, split it into many files
+         $r is now declared globally so that logs are easier to follow
+           the idea being that when one function calls another you
+           know that it was all part of one invocation
+         fixserial.php is now fixserial.sh
+         added verify
+         refactored many different sections
+         changed to ISC license
+
+3.1.0 -- added rename
+         added housekeeping
+         changed changedomain to copy
+         changed htaccess detection method
+         changed from wp to wpm
+         backup now accepts an argument to remove old backups
+         backup now accepts an argument to circumvent compression
+         backup will now use gz if xz is not present
+         added delete
+         updated fixerial.php for php7
+
+3.0.0 -- added SSH options
+         added try/scream/die
+         moved wordpress download into getwp
+         moved UID/GID detection into getwwwid
+
+2.1.0 -- fixed numerous bugs
+         added pv check on backup
+         removed sql file compression since it will be compressed with archive
+
+2.0.0 -- added temppass
+         added htaccess detection mechanisms
+         fixed a bug: backups not receiving file names on some systems
+         logging includes more than installs!
+         fixed bug in freespace check for backup
+         backup now tells you if it fails freespace check
+
+1.2.0 -- backups have timestamps
+         changed compression mechanisms to xz
+         fixed an ssl bug on wp download
+         added more error checking on all the things
+         if pv isn't present tar will use -v
+
+1.1 -- added help
+
+1.0 -- added permissions
+
+0.9 -- added update
+
+0.8 -- added install
+
+0.7 -- added error checking
+       added fixserial
+       added a check for db existence b4 executing
+
+0.6 -- added check for free space
+
+0.5 -- no longer assumes that you are backing up your cwd
+       forces you to pass the directory to be backed up
+
+0.1 -- created wp (wordpress backup script)
